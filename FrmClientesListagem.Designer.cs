@@ -32,8 +32,8 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.footerStatusLabelClienteListagem = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnAtualizarListagem = new System.Windows.Forms.Button();
             this.footerStatusClienteListagem = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnAtualizarListagem = new System.Windows.Forms.Button();
             this.btnAlterarCliente = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -77,6 +77,11 @@
             this.footerStatusLabelClienteListagem.Name = "footerStatusLabelClienteListagem";
             this.footerStatusLabelClienteListagem.Size = new System.Drawing.Size(0, 17);
             // 
+            // footerStatusClienteListagem
+            // 
+            this.footerStatusClienteListagem.Name = "footerStatusClienteListagem";
+            this.footerStatusClienteListagem.Size = new System.Drawing.Size(0, 17);
+            // 
             // btnAtualizarListagem
             // 
             this.btnAtualizarListagem.Location = new System.Drawing.Point(13, 387);
@@ -87,11 +92,6 @@
             this.btnAtualizarListagem.UseVisualStyleBackColor = true;
             this.btnAtualizarListagem.Click += new System.EventHandler(this.btnAtualizarListagem_Click);
             // 
-            // footerStatusClienteListagem
-            // 
-            this.footerStatusClienteListagem.Name = "footerStatusClienteListagem";
-            this.footerStatusClienteListagem.Size = new System.Drawing.Size(0, 17);
-            // 
             // btnAlterarCliente
             // 
             this.btnAlterarCliente.Location = new System.Drawing.Point(228, 387);
@@ -100,6 +100,7 @@
             this.btnAlterarCliente.TabIndex = 4;
             this.btnAlterarCliente.Text = "Alterar";
             this.btnAlterarCliente.UseVisualStyleBackColor = true;
+            this.btnAlterarCliente.Click += new System.EventHandler(this.btnAlterarCliente_Click);
             // 
             // FrmClientesListagem
             // 
@@ -114,7 +115,7 @@
             this.Name = "FrmClientesListagem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Listagem de Clientes";
-            this.Load += new System.EventHandler(this.FrmClientesListagem_Load);
+            this.Activated += new System.EventHandler(this.FrmClientesListagem_Activated);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

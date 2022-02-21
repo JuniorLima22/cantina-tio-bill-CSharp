@@ -20,7 +20,14 @@ namespace cantina_tio_bill_CSharp
 
         private void btnAdicionarNovoCliente_Click(object sender, EventArgs e)
         {
-            FrmClientesAdicionarEditar frm = new FrmClientesAdicionarEditar();
+            FrmClientesAdicionarEditar frm = new FrmClientesAdicionarEditar(0);
+            frm.ShowDialog();
+        }
+        private void btnAlterarCliente_Click(object sender, EventArgs e)
+        {
+            var id = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value);
+            
+            FrmClientesAdicionarEditar frm = new FrmClientesAdicionarEditar(id);
             frm.ShowDialog();
         }
 
@@ -76,9 +83,9 @@ namespace cantina_tio_bill_CSharp
             }
         }
 
-        private void FrmClientesListagem_Load(object sender, EventArgs e)
+        private void FrmClientesListagem_Activated(object sender, EventArgs e)
         {
             listarClientes();
-        }
+        }       
     }
 }

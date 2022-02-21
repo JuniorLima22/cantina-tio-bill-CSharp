@@ -15,10 +15,75 @@ namespace cantina_tio_bill_CSharp
     {
         private bool eNovo = false;
         private bool eEditar = false;
+        private int id = 0;
 
-        public FrmClientesAdicionarEditar()
+
+        public FrmClientesAdicionarEditar(int id)
         {
             InitializeComponent();
+            this.id = id;
+
+            if (this.id > 0)
+            {
+                getCliente(id);
+            }
+
+            botoes();
+        }
+
+        /* Método responsavel por listar cliente pelo ID */
+        private void getCliente(int id)
+        {
+            footerStatusClienteAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                {
+                    cn.Open();
+
+                    var sql = "SELECT * FROM cliente WHERE id_cliente=" + id;
+
+                    using (SqlCommand cmd = new SqlCommand(sql, cn))
+                    {
+                        footerStatusClienteAdicionarEditar.Text = "Buscando dados do cliente.";
+                        statusStrip1.Refresh();
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            if (dr.HasRows)
+                            {
+                                if (dr.Read())
+                                {
+                                    txtNome.Text = dr["nome"].ToString();
+                                    txtTelefone.Text = dr["telefone"].ToString();
+                                    txtEmail.Text = dr["email"].ToString();
+                                    txtLogradouro.Text = dr["logradouro"].ToString();
+                                    txtNumero.Text = dr["numero"].ToString();
+                                    cbxBairro.Text = dr["bairro_id"].ToString();
+                                    txtComplemento.Text = dr["complemento"].ToString();
+                                    txtReferencia.Text = dr["ponto_referencia"].ToString();
+                                    txtCidade.Text = dr["cidade"].ToString();
+                                    txtUf.Text = dr["uf"].ToString();
+                                    txtObservacao.Text = dr["observacao"].ToString();
+                                }
+                            }
+                        }
+                    }
+
+                    footerStatusClienteAdicionarEditar.Text = "Pronto.";
+                    statusStrip1.Refresh();
+                    //limparCampos();
+                    //mensagemOk("Cliente encontrado com sucesso." + id);
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao buscar cliente \n\n" + ex.Message);
+                footerStatusClienteAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
         }
 
         /* Método responsavel por exibir mensagem de sucesso */
@@ -52,23 +117,22 @@ namespace cantina_tio_bill_CSharp
         /* Método responsavel por habilitar e desabilitar botões */
         private void botoes()
         {
-            if(this.eNovo || this.eEditar)
+            if(this.id > 0)
             {
-                this.btnSalvar.Enabled = true;
-                this.btnEditar.Enabled = false;
-                this.btnCancelar.Enabled = true;
-                this.btnExcluir.Enabled = false;
-            }else{
                 this.btnSalvar.Enabled = false;
                 this.btnEditar.Enabled = true;
-                this.btnCancelar.Enabled = false;
                 this.btnExcluir.Enabled = true;
+            }else{
+                this.btnSalvar.Enabled = true;
+                this.btnEditar.Enabled = false;
+                this.btnExcluir.Enabled = false;
             }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             limparCampos();
+            this.Close();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
