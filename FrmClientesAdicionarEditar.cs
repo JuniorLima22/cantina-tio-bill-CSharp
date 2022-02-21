@@ -74,8 +74,6 @@ namespace cantina_tio_bill_CSharp
 
                     footerStatusClienteAdicionarEditar.Text = "Pronto.";
                     statusStrip1.Refresh();
-                    //limparCampos();
-                    //mensagemOk("Cliente encontrado com sucesso." + id);
                 }
             }
             catch (SqlException ex)
@@ -187,6 +185,64 @@ namespace cantina_tio_bill_CSharp
             catch (SqlException ex)
             {
                 mensagemErro("Erro ao cadastrar cliente \n\n" + ex.Message);
+                footerStatusClienteAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            footerStatusClienteAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                {
+                    cn.Open();
+
+                    var sql = @"
+                        UPDATE cliente SET
+                        nome=@nome, telefone=@telefone, email=@email, logradouro=@logradouro, 
+                        numero=@numero, bairro_id=@bairro_id, complemento=@complemento, 
+                        ponto_referencia=@ponto_referencia, cidade=@cidade, uf=@uf, observacao=@observacao,
+                        data_edicao=@data_edicao
+                        WHERE id_cliente=
+                    "+this.id;
+
+                    using (SqlCommand cmd = new SqlCommand(sql, cn))
+                    {
+                        footerStatusClienteAdicionarEditar.Text = "Salvando dados.";
+                        statusStrip1.Refresh();
+
+                        var bairro_id = 5;
+
+                        DateTime dateTime = DateTime.Now;
+
+                        cmd.Parameters.AddWithValue("@nome", txtNome.Text);
+                        cmd.Parameters.AddWithValue("@telefone", txtTelefone.Text);
+                        cmd.Parameters.AddWithValue("@email", txtEmail.Text);
+                        cmd.Parameters.AddWithValue("@logradouro", txtLogradouro.Text);
+                        cmd.Parameters.AddWithValue("@numero", txtNumero.Text);
+                        cmd.Parameters.AddWithValue("@bairro_id", bairro_id);
+                        cmd.Parameters.AddWithValue("@complemento", txtComplemento.Text);
+                        cmd.Parameters.AddWithValue("@ponto_referencia", txtReferencia.Text);
+                        cmd.Parameters.AddWithValue("@cidade", txtCidade.Text);
+                        cmd.Parameters.AddWithValue("@uf", txtUf.Text);
+                        cmd.Parameters.AddWithValue("@observacao", txtObservacao.Text);
+                        cmd.Parameters.AddWithValue("@data_edicao", dateTime);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    footerStatusClienteAdicionarEditar.Text = "Pronto.";
+                    statusStrip1.Refresh();
+                    mensagemOk("Cliente atualizado com sucesso.");
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao atualizar cliente \n\n" + ex.Message);
                 footerStatusClienteAdicionarEditar.Text = "Erro.";
                 statusStrip1.Refresh();
             }
