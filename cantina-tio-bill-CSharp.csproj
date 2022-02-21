@@ -53,10 +53,28 @@
     <Compile Include="FormPedidos.Designer.cs">
       <DependentUpon>FormPedidos.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmClientesAdicionarEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmClientesAdicionarEditar.Designer.cs">
+      <DependentUpon>FrmClientesAdicionarEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmClientesListagem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmClientesListagem.Designer.cs">
+      <DependentUpon>FrmClientesListagem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormPedidos.resx">
       <DependentUpon>FormPedidos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmClientesAdicionarEditar.resx">
+      <DependentUpon>FrmClientesAdicionarEditar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmClientesListagem.resx">
+      <DependentUpon>FrmClientesListagem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -43,5 +43,11 @@ namespace cantina_tio_bill_CSharp
         {
             footerStatusLabel.Text = "";
         }
+
+        private void cadastroDeClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmClientesListagem frm = new FrmClientesListagem();
+            frm.ShowDialog();
+        }
     }
 }
