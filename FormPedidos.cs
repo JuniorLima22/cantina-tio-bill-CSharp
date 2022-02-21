@@ -49,5 +49,11 @@ namespace cantina_tio_bill_CSharp
             FrmClientesListagem frm = new FrmClientesListagem();
             frm.ShowDialog();
         }
+
+        private void cadastroDeBairroETaxaDeEntregaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmBairroListagem frm = new FrmBairroListagem();
+            frm.ShowDialog();
+        }
     }
 }

@@ -53,6 +53,18 @@
     <Compile Include="FormPedidos.Designer.cs">
       <DependentUpon>FormPedidos.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmBairroAdicionarEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBairroAdicionarEditar.Designer.cs">
+      <DependentUpon>FrmBairroAdicionarEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmBairroListagem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBairroListagem.Designer.cs">
+      <DependentUpon>FrmBairroListagem.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmClientesAdicionarEditar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +81,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormPedidos.resx">
       <DependentUpon>FormPedidos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmBairroListagem.resx">
+      <DependentUpon>FrmBairroListagem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmClientesAdicionarEditar.resx">
       <DependentUpon>FrmClientesAdicionarEditar.cs</DependentUpon>

@@ -96,6 +96,7 @@
             this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem.Name = "cadastroDeBairroETaxaDeEntregaToolStripMenuItem";
             this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
             this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem.Text = "Cadastro de bairro e taxa de entrega";
+            this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem.Click += new System.EventHandler(this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem_Click);
             // 
             // frmPedido
             // 
