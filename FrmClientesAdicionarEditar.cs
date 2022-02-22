@@ -247,7 +247,7 @@ namespace cantina_tio_bill_CSharp
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            footerStatusClienteAdicionarEditar.Text = "Conectando, aguarde..."+ this.id;
+            footerStatusClienteAdicionarEditar.Text = "Conectando, aguarde...";
             statusStrip1.Refresh();
             
             try
