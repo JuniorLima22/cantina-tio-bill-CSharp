@@ -35,11 +35,11 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.footerStatusBairro = new System.Windows.Forms.ToolStripStatusLabel();
+            this.footerStatusBairroAdicionarEditar = new System.Windows.Forms.ToolStripStatusLabel();
             this.labelTaxaEntrega = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.labelNome = new System.Windows.Forms.Label();
             this.txtTaxaEntrega = new System.Windows.Forms.TextBox();
-            this.footerStatusBairroAdicionarEditar = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +51,7 @@
             this.btnExcluir.TabIndex = 54;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
             // btnEditar
             // 
@@ -104,6 +105,11 @@
             this.footerStatusBairro.Name = "footerStatusBairro";
             this.footerStatusBairro.Size = new System.Drawing.Size(0, 17);
             // 
+            // footerStatusBairroAdicionarEditar
+            // 
+            this.footerStatusBairroAdicionarEditar.Name = "footerStatusBairroAdicionarEditar";
+            this.footerStatusBairroAdicionarEditar.Size = new System.Drawing.Size(0, 17);
+            // 
             // labelTaxaEntrega
             // 
             this.labelTaxaEntrega.AutoSize = true;
@@ -140,11 +146,6 @@
             this.txtTaxaEntrega.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTaxaEntrega_KeyPress);
             this.txtTaxaEntrega.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTaxaEntrega_KeyUp);
             this.txtTaxaEntrega.Leave += new System.EventHandler(this.txtTaxaEntrega_Leave);
-            // 
-            // footerStatusBairroAdicionarEditar
-            // 
-            this.footerStatusBairroAdicionarEditar.Name = "footerStatusBairroAdicionarEditar";
-            this.footerStatusBairroAdicionarEditar.Size = new System.Drawing.Size(0, 17);
             // 
             // FrmBairroAdicionarEditar
             // 

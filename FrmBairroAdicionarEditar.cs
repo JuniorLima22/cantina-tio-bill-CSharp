@@ -258,5 +258,50 @@ namespace cantina_tio_bill_CSharp
             limparCampos();
             this.Close();
         }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            footerStatusBairroAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+
+            try
+            {
+                if (DialogResult.Yes == MessageBox.Show("Tem certeza que deseja excluir esse registro?", "Cantina Tio Billo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                {
+
+                    using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                    {
+                        cn.Open();
+
+                        var sql = @"
+                            DELETE FROM bairro
+                            WHERE id_bairro=@id
+                        ";
+
+                        using (SqlCommand cmd = new SqlCommand(sql, cn))
+                        {
+                            footerStatusBairroAdicionarEditar.Text = "Excluindo dados.";
+                            statusStrip1.Refresh();
+
+                            cmd.Parameters.AddWithValue("@id", this.id);
+
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        footerStatusBairroAdicionarEditar.Text = "Pronto.";
+                        statusStrip1.Refresh();
+                        mensagemOk("Bairro excluido com sucesso.");
+                        limparCampos();
+                        this.Close();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao excluir bairro \n\n" + ex.Message);
+                footerStatusBairroAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
     }
 }
