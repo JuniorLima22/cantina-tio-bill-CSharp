@@ -90,6 +90,7 @@
             this.btnAlterarCliente.TabIndex = 9;
             this.btnAlterarCliente.Text = "Alterar";
             this.btnAlterarCliente.UseVisualStyleBackColor = true;
+            this.btnAlterarCliente.Click += new System.EventHandler(this.btnAlterarCliente_Click);
             // 
             // btnAtualizarListagem
             // 

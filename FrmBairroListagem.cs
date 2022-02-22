@@ -85,5 +85,13 @@ namespace cantina_tio_bill_CSharp
             FrmBairroAdicionarEditar frm = new FrmBairroAdicionarEditar(0);
             frm.ShowDialog();
         }
+
+        private void btnAlterarCliente_Click(object sender, EventArgs e)
+        {
+            var id = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value);
+
+            FrmBairroAdicionarEditar frm = new FrmBairroAdicionarEditar(id);
+            frm.ShowDialog();
+        }
     }
 }

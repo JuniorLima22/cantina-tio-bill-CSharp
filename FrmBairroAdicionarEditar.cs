@@ -24,7 +24,7 @@ namespace cantina_tio_bill_CSharp
 
             if (this.id > 0)
             {
-                //getBairro(id);
+                getBairro(id);
             }
 
             botoes();
@@ -126,10 +126,7 @@ namespace cantina_tio_bill_CSharp
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             footerStatusBairroAdicionarEditar.Text = "Conectando, aguarde...";
-            statusStrip1.Refresh();
-
-            //mensagemOk(txtTaxaEntrega.Text + " - " + this.valor);
-            
+            statusStrip1.Refresh();            
             
             try
             {
@@ -167,6 +164,99 @@ namespace cantina_tio_bill_CSharp
                 footerStatusBairroAdicionarEditar.Text = "Erro.";
                 statusStrip1.Refresh();
             }
+        }
+
+        /* Método responsavel por listar bairro pelo ID */
+        private void getBairro(int id)
+        {
+            footerStatusBairroAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                {
+                    cn.Open();
+
+                    var sql = "SELECT * FROM bairro WHERE id_bairro=" + id;
+
+                    using (SqlCommand cmd = new SqlCommand(sql, cn))
+                    {
+                        footerStatusBairroAdicionarEditar.Text = "Buscando dados do bairro.";
+                        statusStrip1.Refresh();
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            if (dr.HasRows)
+                            {
+                                if (dr.Read())
+                                {
+                                    txtNome.Text = dr["nome"].ToString();
+                                    txtTaxaEntrega.Text = dr["taxa_entrega"].ToString();
+
+                                    this.valor = dr["taxa_entrega"].ToString();
+                                }
+                            }
+                        }
+                    }
+
+                    footerStatusBairroAdicionarEditar.Text = "Pronto.";
+                    statusStrip1.Refresh();
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao buscar bairro \n\n" + ex.Message);
+                footerStatusBairroAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            footerStatusBairroAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                {
+                    cn.Open();
+
+                    var sql = @"
+                        UPDATE bairro SET
+                        nome=@nome, taxa_entrega=@taxa_entrega
+                        WHERE id_bairro=
+                    " + this.id;
+
+                    using (SqlCommand cmd = new SqlCommand(sql, cn))
+                    {
+                        footerStatusBairroAdicionarEditar.Text = "Salvando dados.";
+                        statusStrip1.Refresh();
+
+                        cmd.Parameters.AddWithValue("@nome", txtNome.Text);
+                        cmd.Parameters.AddWithValue("@taxa_entrega", Convert.ToDouble(this.valor));
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    footerStatusBairroAdicionarEditar.Text = "Pronto.";
+                    statusStrip1.Refresh();
+                    mensagemOk("Bairro atualizado com sucesso.");
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao atualizar bairro \n\n" + ex.Message);
+                footerStatusBairroAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            limparCampos();
+            this.Close();
         }
     }
 }

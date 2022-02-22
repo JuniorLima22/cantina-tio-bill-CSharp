@@ -60,6 +60,7 @@
             this.btnEditar.TabIndex = 52;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnSalvar
             // 
@@ -84,6 +85,7 @@
             this.btnCancelar.TabIndex = 53;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // statusStrip1
             // 
@@ -142,8 +144,7 @@
             // footerStatusBairroAdicionarEditar
             // 
             this.footerStatusBairroAdicionarEditar.Name = "footerStatusBairroAdicionarEditar";
-            this.footerStatusBairroAdicionarEditar.Size = new System.Drawing.Size(46, 17);
-            this.footerStatusBairroAdicionarEditar.Text = "Pronto.";
+            this.footerStatusBairroAdicionarEditar.Size = new System.Drawing.Size(0, 17);
             // 
             // FrmBairroAdicionarEditar
             // 
