@@ -80,6 +80,7 @@
             this.btnAdicionarNovoCliente.TabIndex = 5;
             this.btnAdicionarNovoCliente.Text = "Adicionar";
             this.btnAdicionarNovoCliente.UseVisualStyleBackColor = true;
+            this.btnAdicionarNovoCliente.Click += new System.EventHandler(this.btnAdicionarNovoCliente_Click);
             // 
             // btnAlterarCliente
             // 
@@ -110,6 +111,9 @@
             this.Controls.Add(this.btnAdicionarNovoCliente);
             this.Controls.Add(this.btnAlterarCliente);
             this.Controls.Add(this.btnAtualizarListagem);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FrmBairroListagem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Listagem dos Bairros";

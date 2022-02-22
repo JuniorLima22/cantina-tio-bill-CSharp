@@ -79,5 +79,11 @@ namespace cantina_tio_bill_CSharp
         {
             listarBairros();
         }
+
+        private void btnAdicionarNovoCliente_Click(object sender, EventArgs e)
+        {
+            FrmBairroAdicionarEditar frm = new FrmBairroAdicionarEditar(0);
+            frm.ShowDialog();
+        }
     }
 }

@@ -82,6 +82,9 @@
     <EmbeddedResource Include="FormPedidos.resx">
       <DependentUpon>FormPedidos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmBairroAdicionarEditar.resx">
+      <DependentUpon>FrmBairroAdicionarEditar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmBairroListagem.resx">
       <DependentUpon>FrmBairroListagem.cs</DependentUpon>
     </EmbeddedResource>

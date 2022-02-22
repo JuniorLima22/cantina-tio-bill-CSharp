@@ -337,6 +337,9 @@
             this.Controls.Add(this.labelTelefone);
             this.Controls.Add(this.txtNome);
             this.Controls.Add(this.labelNome);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FrmClientesAdicionarEditar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastro de Cliente";

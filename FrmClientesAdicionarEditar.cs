@@ -13,10 +13,7 @@ namespace cantina_tio_bill_CSharp
 {
     public partial class FrmClientesAdicionarEditar : Form
     {
-        private bool eNovo = false;
-        private bool eEditar = false;
         private int id = 0;
-
 
         public FrmClientesAdicionarEditar(int id)
         {
