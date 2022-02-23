@@ -16,7 +16,7 @@ namespace cantina_tio_bill_CSharp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmPedido());
+            Application.Run(new frmPedidosListagem());
         }
     }
 }

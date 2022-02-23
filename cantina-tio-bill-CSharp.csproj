@@ -47,11 +47,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conn.cs" />
-    <Compile Include="FormPedidos.cs">
+    <Compile Include="FrmPedidosAdicionarEditar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormPedidos.Designer.cs">
-      <DependentUpon>FormPedidos.cs</DependentUpon>
+    <Compile Include="FrmPedidosAdicionarEditar.Designer.cs">
+      <DependentUpon>FrmPedidosAdicionarEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPedidosListagem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPedidosListagem.Designer.cs">
+      <DependentUpon>FrmPedidosListagem.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmBairroAdicionarEditar.cs">
       <SubType>Form</SubType>
@@ -79,8 +85,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormPedidos.resx">
-      <DependentUpon>FormPedidos.cs</DependentUpon>
+    <EmbeddedResource Include="FrmPedidosAdicionarEditar.resx">
+      <DependentUpon>FrmPedidosAdicionarEditar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPedidosListagem.resx">
+      <DependentUpon>FrmPedidosListagem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmBairroAdicionarEditar.resx">
       <DependentUpon>FrmBairroAdicionarEditar.cs</DependentUpon>
