@@ -31,6 +31,7 @@
             this.bntAtualizarListagem = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.footerStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.footerStatusPedidoListagem = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cadastroDeClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastroDeClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,7 +39,6 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnAlterarPedido = new System.Windows.Forms.Button();
             this.btnAdicionarPedido = new System.Windows.Forms.Button();
-            this.footerStatusPedidoListagem = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -52,6 +52,7 @@
             this.bntAtualizarListagem.TabIndex = 0;
             this.bntAtualizarListagem.Text = "Atualizar Listagem";
             this.bntAtualizarListagem.UseVisualStyleBackColor = true;
+            this.bntAtualizarListagem.Click += new System.EventHandler(this.bntAtualizarListagem_Click);
             // 
             // statusStrip1
             // 
@@ -68,6 +69,11 @@
             // 
             this.footerStatusLabel.Name = "footerStatusLabel";
             this.footerStatusLabel.Size = new System.Drawing.Size(0, 17);
+            // 
+            // footerStatusPedidoListagem
+            // 
+            this.footerStatusPedidoListagem.Name = "footerStatusPedidoListagem";
+            this.footerStatusPedidoListagem.Size = new System.Drawing.Size(0, 17);
             // 
             // menuStrip1
             // 
@@ -111,6 +117,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(13, 31);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(775, 347);
             this.dataGridView1.TabIndex = 3;
             // 
@@ -132,11 +139,6 @@
             this.btnAdicionarPedido.Text = "Adicionar";
             this.btnAdicionarPedido.UseVisualStyleBackColor = true;
             this.btnAdicionarPedido.Click += new System.EventHandler(this.btnAdicionarPedido_Click);
-            // 
-            // footerStatusPedidoListagem
-            // 
-            this.footerStatusPedidoListagem.Name = "footerStatusPedidoListagem";
-            this.footerStatusPedidoListagem.Size = new System.Drawing.Size(0, 17);
             // 
             // frmPedidosListagem
             // 

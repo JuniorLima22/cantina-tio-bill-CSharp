@@ -84,8 +84,13 @@ namespace cantina_tio_bill_CSharp
 
         private void btnAdicionarPedido_Click(object sender, EventArgs e)
         {
-            FrmPedidosAdicionarEditar frm = new FrmPedidosAdicionarEditar();
+            FrmPedidosAdicionarEditar frm = new FrmPedidosAdicionarEditar(0);
             frm.ShowDialog();
+        }
+
+        private void bntAtualizarListagem_Click(object sender, EventArgs e)
+        {
+            listarPedidos();
         }
     }
 }
