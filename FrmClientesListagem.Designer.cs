@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.btnAdicionarNovoCliente = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvListagemCliente = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.footerStatusLabelClienteListagem = new System.Windows.Forms.ToolStripStatusLabel();
             this.footerStatusClienteListagem = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnAtualizarListagem = new System.Windows.Forms.Button();
             this.btnAlterarCliente = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListagemCliente)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,18 +49,19 @@
             this.btnAdicionarNovoCliente.UseVisualStyleBackColor = true;
             this.btnAdicionarNovoCliente.Click += new System.EventHandler(this.btnAdicionarNovoCliente_Click);
             // 
-            // dataGridView1
+            // dgvListagemCliente
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(13, 13);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(775, 347);
-            this.dataGridView1.TabIndex = 1;
+            this.dgvListagemCliente.AllowUserToAddRows = false;
+            this.dgvListagemCliente.AllowUserToDeleteRows = false;
+            this.dgvListagemCliente.AllowUserToOrderColumns = true;
+            this.dgvListagemCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvListagemCliente.Location = new System.Drawing.Point(13, 13);
+            this.dgvListagemCliente.Name = "dgvListagemCliente";
+            this.dgvListagemCliente.ReadOnly = true;
+            this.dgvListagemCliente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvListagemCliente.Size = new System.Drawing.Size(775, 347);
+            this.dgvListagemCliente.TabIndex = 1;
+            this.dgvListagemCliente.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvListagemCliente_DataBindingComplete);
             // 
             // statusStrip1
             // 
@@ -111,7 +112,7 @@
             this.Controls.Add(this.btnAlterarCliente);
             this.Controls.Add(this.btnAtualizarListagem);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvListagemCliente);
             this.Controls.Add(this.btnAdicionarNovoCliente);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -120,7 +121,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Listagem de Clientes";
             this.Activated += new System.EventHandler(this.FrmClientesListagem_Activated);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListagemCliente)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -131,7 +132,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnAdicionarNovoCliente;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvListagemCliente;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel footerStatusLabelClienteListagem;
         private System.Windows.Forms.Button btnAtualizarListagem;
