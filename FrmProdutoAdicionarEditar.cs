@@ -132,6 +132,51 @@ namespace cantina_tio_bill_CSharp
             }
         }
 
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            footerStatusProdutoAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+
+            try
+            {
+                if (DialogResult.Yes == MessageBox.Show("Tem certeza que deseja excluir esse produto?", "Cantina Tio Billo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                {
+
+                    using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                    {
+                        cn.Open();
+
+                        var sql = @"
+                            DELETE FROM produto
+                            WHERE id_produto=@id
+                        ";
+
+                        using (SqlCommand cmd = new SqlCommand(sql, cn))
+                        {
+                            footerStatusProdutoAdicionarEditar.Text = "Excluindo dados do produto.";
+                            statusStrip1.Refresh();
+
+                            cmd.Parameters.AddWithValue("@id", this.id_produto);
+
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        footerStatusProdutoAdicionarEditar.Text = "Pronto.";
+                        statusStrip1.Refresh();
+                        mensagemOk("Produto excluido com sucesso.");
+                        limparCampos();
+                        this.Close();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao excluir produto \n\n" + ex.Message);
+                footerStatusProdutoAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
+
         /* Método responsavel por listar produto pelo ID */
         private void getProduto(int id)
         {
