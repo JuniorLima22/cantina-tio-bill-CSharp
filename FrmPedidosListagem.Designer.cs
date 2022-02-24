@@ -123,11 +123,11 @@
             // 
             // btnAlterarPedido
             // 
-            this.btnAlterarPedido.Location = new System.Drawing.Point(208, 392);
+            this.btnAlterarPedido.Location = new System.Drawing.Point(236, 392);
             this.btnAlterarPedido.Name = "btnAlterarPedido";
-            this.btnAlterarPedido.Size = new System.Drawing.Size(75, 23);
+            this.btnAlterarPedido.Size = new System.Drawing.Size(86, 23);
             this.btnAlterarPedido.TabIndex = 6;
-            this.btnAlterarPedido.Text = "Alterar";
+            this.btnAlterarPedido.Text = "Alterar Pedido";
             this.btnAlterarPedido.UseVisualStyleBackColor = true;
             this.btnAlterarPedido.Click += new System.EventHandler(this.btnAlterarPedido_Click);
             // 
@@ -135,9 +135,9 @@
             // 
             this.btnAdicionarPedido.Location = new System.Drawing.Point(127, 392);
             this.btnAdicionarPedido.Name = "btnAdicionarPedido";
-            this.btnAdicionarPedido.Size = new System.Drawing.Size(75, 23);
+            this.btnAdicionarPedido.Size = new System.Drawing.Size(103, 23);
             this.btnAdicionarPedido.TabIndex = 5;
-            this.btnAdicionarPedido.Text = "Adicionar";
+            this.btnAdicionarPedido.Text = "Adicionar Pedido";
             this.btnAdicionarPedido.UseVisualStyleBackColor = true;
             this.btnAdicionarPedido.Click += new System.EventHandler(this.btnAdicionarPedido_Click);
             // 

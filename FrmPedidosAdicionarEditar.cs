@@ -266,9 +266,33 @@ namespace cantina_tio_bill_CSharp
 
             try
             {
-                if (DialogResult.Yes == MessageBox.Show("Tem certeza que deseja excluir este registro?", "Cantina Tio Billo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                if (DialogResult.Yes == MessageBox.Show("Tem certeza que deseja excluir este pedido?", "Cantina Tio Billo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                 {
+                    /* Excluir produto de Pedido */
+                    using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                    {
+                        cn.Open();
 
+                        var sql = @"
+                            DELETE FROM pedido_item
+                            WHERE pedido_id=@id
+                        ";
+
+                        using (SqlCommand cmd = new SqlCommand(sql, cn))
+                        {
+                            footerStatusPedidosAdicionarEditar.Text = "Excluindo produto de pedido.";
+                            statusStrip1.Refresh();
+
+                            cmd.Parameters.AddWithValue("@id", this.id_pedido);
+
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        footerStatusPedidosAdicionarEditar.Text = "Pronto.";
+                        statusStrip1.Refresh();
+                    }
+
+                    /* Excluir Pedido */
                     using (SqlConnection cn = new SqlConnection(Conn.StrCon))
                     {
                         cn.Open();
@@ -280,7 +304,7 @@ namespace cantina_tio_bill_CSharp
 
                         using (SqlCommand cmd = new SqlCommand(sql, cn))
                         {
-                            footerStatusPedidosAdicionarEditar.Text = "Excluindo dados.";
+                            footerStatusPedidosAdicionarEditar.Text = "Excluindo pedido.";
                             statusStrip1.Refresh();
 
                             cmd.Parameters.AddWithValue("@id", this.id_pedido);
@@ -325,7 +349,7 @@ namespace cantina_tio_bill_CSharp
 
                     using (SqlCommand cmd = new SqlCommand(sql, cn))
                     {
-                        footerStatusPedidosAdicionarEditar.Text = "Buscando dados do cliente.";
+                        footerStatusPedidosAdicionarEditar.Text = "Buscando dados do pedido.";
                         statusStrip1.Refresh();
 
                         using (SqlDataReader dr = cmd.ExecuteReader())
@@ -358,7 +382,7 @@ namespace cantina_tio_bill_CSharp
             }
             catch (SqlException ex)
             {
-                mensagemErro("Erro ao buscar cliente \n\n" + ex.Message);
+                mensagemErro("Erro ao buscar pedido \n\n" + ex.Message);
                 footerStatusPedidosAdicionarEditar.Text = "Erro.";
                 statusStrip1.Refresh();
             }
@@ -398,7 +422,7 @@ namespace cantina_tio_bill_CSharp
             }
             catch (SqlException ex)
             {
-                mensagemErro("Erro ao listar pedidos \n\n" + ex.Message);
+                mensagemErro("Erro ao listar produto de pedidos \n\n" + ex.Message);
                 footerStatusPedidosAdicionarEditar.Text = "Erro.";
                 statusStrip1.Refresh();
             }
@@ -504,7 +528,7 @@ namespace cantina_tio_bill_CSharp
 
                     using (SqlCommand cmd = new SqlCommand(sql, cn))
                     {
-                        footerStatusPedidosAdicionarEditar.Text = "Salvando dados.";
+                        footerStatusPedidosAdicionarEditar.Text = "Salvando produto ao pedido.";
                         statusStrip1.Refresh();
 
                         var produto_id = Convert.ToInt32(cbxProdutoId.SelectedValue);
@@ -529,7 +553,7 @@ namespace cantina_tio_bill_CSharp
             }
             catch (SqlException ex)
             {
-                mensagemErro("Erro ao cadastrar produto ao pedido \n\n" + ex.Message);
+                mensagemErro("Erro ao adicionar produto ao pedido \n\n" + ex.Message);
                 footerStatusPedidosAdicionarEditar.Text = "Erro.";
                 statusStrip1.Refresh();
             }
@@ -542,7 +566,7 @@ namespace cantina_tio_bill_CSharp
 
             try
             {
-                if (DialogResult.Yes == MessageBox.Show("Tem certeza que deseja excluir este produto do registro?", "Cantina Tio Billo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                if (DialogResult.Yes == MessageBox.Show("Tem certeza que deseja excluir este produto do pedido?", "Cantina Tio Billo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                 {
 
                     using (SqlConnection cn = new SqlConnection(Conn.StrCon))
@@ -556,7 +580,7 @@ namespace cantina_tio_bill_CSharp
 
                         using (SqlCommand cmd = new SqlCommand(sql, cn))
                         {
-                            footerStatusPedidosAdicionarEditar.Text = "Excluindo dados.";
+                            footerStatusPedidosAdicionarEditar.Text = "Excluindo produto de pedido.";
                             statusStrip1.Refresh();
 
                             var id = Convert.ToInt32(dgvProdutoPedido.Rows[dgvProdutoPedido.CurrentCell.RowIndex].Cells[0].Value);
