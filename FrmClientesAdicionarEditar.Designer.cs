@@ -43,7 +43,6 @@
             this.labelBairro = new System.Windows.Forms.Label();
             this.cbxBairroId = new System.Windows.Forms.ComboBox();
             this.labelUf = new System.Windows.Forms.Label();
-            this.txtUf = new System.Windows.Forms.TextBox();
             this.labelCidade = new System.Windows.Forms.Label();
             this.txtCidade = new System.Windows.Forms.TextBox();
             this.txtReferencia = new System.Windows.Forms.TextBox();
@@ -56,6 +55,7 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
+            this.cbxUf = new System.Windows.Forms.ComboBox();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -188,14 +188,6 @@
             this.labelUf.TabIndex = 18;
             this.labelUf.Text = "UF";
             // 
-            // txtUf
-            // 
-            this.txtUf.Location = new System.Drawing.Point(267, 282);
-            this.txtUf.MaxLength = 2;
-            this.txtUf.Name = "txtUf";
-            this.txtUf.Size = new System.Drawing.Size(68, 20);
-            this.txtUf.TabIndex = 17;
-            // 
             // labelCidade
             // 
             this.labelCidade.AutoSize = true;
@@ -301,11 +293,50 @@
             this.btnExcluir.UseVisualStyleBackColor = true;
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
+            // cbxUf
+            // 
+            this.cbxUf.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxUf.FormattingEnabled = true;
+            this.cbxUf.Items.AddRange(new object[] {
+            "Selecione...",
+            "AC",
+            "AL",
+            "AM",
+            "AP",
+            "BA",
+            "CE",
+            "DF",
+            "ES",
+            "GO",
+            "MA",
+            "MG",
+            "MS",
+            "MT",
+            "PA",
+            "PB",
+            "PE",
+            "PI",
+            "PR",
+            "RJ",
+            "RN",
+            "RO",
+            "RR",
+            "RS",
+            "SC",
+            "SE",
+            "SP",
+            "TO"});
+            this.cbxUf.Location = new System.Drawing.Point(264, 282);
+            this.cbxUf.Name = "cbxUf";
+            this.cbxUf.Size = new System.Drawing.Size(72, 21);
+            this.cbxUf.TabIndex = 28;
+            // 
             // FrmClientesAdicionarEditar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(565, 450);
+            this.Controls.Add(this.cbxUf);
             this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnEditar);
@@ -316,7 +347,6 @@
             this.Controls.Add(this.txtReferencia);
             this.Controls.Add(this.labelReferencia);
             this.Controls.Add(this.labelUf);
-            this.Controls.Add(this.txtUf);
             this.Controls.Add(this.labelCidade);
             this.Controls.Add(this.txtCidade);
             this.Controls.Add(this.cbxBairroId);
@@ -364,7 +394,6 @@
         private System.Windows.Forms.Label labelBairro;
         private System.Windows.Forms.ComboBox cbxBairroId;
         private System.Windows.Forms.Label labelUf;
-        private System.Windows.Forms.TextBox txtUf;
         private System.Windows.Forms.Label labelCidade;
         private System.Windows.Forms.TextBox txtCidade;
         private System.Windows.Forms.TextBox txtReferencia;
@@ -377,5 +406,6 @@
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnExcluir;
+        private System.Windows.Forms.ComboBox cbxUf;
     }
 }

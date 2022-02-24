@@ -33,6 +33,11 @@ namespace cantina_tio_bill_CSharp
         {
             listarBairros();
             selecionarBairroCliente();
+
+            if (this.id == 0)
+            {
+                cbxUf.SelectedIndex = 0;
+            }
         }
 
         /* Método responsavel por listar clientes */
@@ -108,8 +113,10 @@ namespace cantina_tio_bill_CSharp
                                     txtComplemento.Text = dr["complemento"].ToString();
                                     txtReferencia.Text = dr["ponto_referencia"].ToString();
                                     txtCidade.Text = dr["cidade"].ToString();
-                                    txtUf.Text = dr["uf"].ToString();
                                     txtObservacao.Text = dr["observacao"].ToString();
+
+                                    int cbx_uf= cbxUf.FindString(dr["uf"].ToString());
+                                    cbxUf.SelectedIndex = Convert.ToInt32(cbx_uf);
 
                                     this.bairroIdCliente = Convert.ToInt32(dr["bairro_id"]);
                                 }
@@ -174,7 +181,7 @@ namespace cantina_tio_bill_CSharp
                         cmd.Parameters.AddWithValue("@complemento", txtComplemento.Text);
                         cmd.Parameters.AddWithValue("@ponto_referencia", txtReferencia.Text);
                         cmd.Parameters.AddWithValue("@cidade", txtCidade.Text);
-                        cmd.Parameters.AddWithValue("@uf", txtUf.Text);
+                        cmd.Parameters.AddWithValue("@uf", cbxUf.Text);
                         cmd.Parameters.AddWithValue("@observacao", txtObservacao.Text);
                         cmd.Parameters.AddWithValue("@data_cadastro", dateTime);
 
@@ -233,7 +240,7 @@ namespace cantina_tio_bill_CSharp
                         cmd.Parameters.AddWithValue("@complemento", txtComplemento.Text);
                         cmd.Parameters.AddWithValue("@ponto_referencia", txtReferencia.Text);
                         cmd.Parameters.AddWithValue("@cidade", txtCidade.Text);
-                        cmd.Parameters.AddWithValue("@uf", txtUf.Text);
+                        cmd.Parameters.AddWithValue("@uf", cbxUf.Text);
                         cmd.Parameters.AddWithValue("@observacao", txtObservacao.Text);
                         cmd.Parameters.AddWithValue("@data_edicao", dateTime);
 
@@ -322,7 +329,7 @@ namespace cantina_tio_bill_CSharp
             txtComplemento.Text = string.Empty;
             txtReferencia.Text = string.Empty;
             txtCidade.Text = string.Empty;
-            txtUf.Text = string.Empty;
+            cbxUf.SelectedIndex = 0;
             txtObservacao.Text = string.Empty;
         }
 
