@@ -129,6 +129,7 @@
             this.btnAlterarPedido.TabIndex = 6;
             this.btnAlterarPedido.Text = "Alterar";
             this.btnAlterarPedido.UseVisualStyleBackColor = true;
+            this.btnAlterarPedido.Click += new System.EventHandler(this.btnAlterarPedido_Click);
             // 
             // btnAdicionarPedido
             // 
@@ -158,7 +159,7 @@
             this.Name = "frmPedidosListagem";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Listagem de Pedidos";
-            this.Load += new System.EventHandler(this.frmPedido_Load);
+            this.Activated += new System.EventHandler(this.frmPedidosListagem_Activated);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);

@@ -53,11 +53,6 @@ namespace cantina_tio_bill_CSharp
             }
         }
 
-        private void frmPedido_Load(object sender, EventArgs e)
-        {
-            listarPedidos();
-        }
-
         private void cadastroDeClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmClientesListagem frm = new FrmClientesListagem();
@@ -89,6 +84,19 @@ namespace cantina_tio_bill_CSharp
         }
 
         private void bntAtualizarListagem_Click(object sender, EventArgs e)
+        {
+            listarPedidos();
+        }
+
+        private void btnAlterarPedido_Click(object sender, EventArgs e)
+        {
+            var id = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value);
+
+            FrmPedidosAdicionarEditar frm = new FrmPedidosAdicionarEditar(id);
+            frm.ShowDialog();
+        }
+
+        private void frmPedidosListagem_Activated(object sender, EventArgs e)
         {
             listarPedidos();
         }

@@ -62,6 +62,7 @@
             this.groupBoxBtn2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnExcluir = new System.Windows.Forms.Button();
+            this.txtClienteId = new System.Windows.Forms.TextBox();
             this.statusStrip1.SuspendLayout();
             this.groupBoxPedido.SuspendLayout();
             this.groupBoxDadosCliente.SuspendLayout();
@@ -186,6 +187,7 @@
             this.btnCancelar.TabIndex = 9;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnSalvar
             // 
@@ -205,13 +207,13 @@
             this.btnEditar.TabIndex = 8;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // groupBoxPedido
             // 
             this.groupBoxPedido.Controls.Add(this.groupBoxDadosCliente);
             this.groupBoxPedido.Controls.Add(this.txtMotivoCancelamento);
             this.groupBoxPedido.Controls.Add(this.labelPedidoId);
-            this.groupBoxPedido.Controls.Add(this.cbxClienteId);
             this.groupBoxPedido.Controls.Add(this.labelClienteId);
             this.groupBoxPedido.Controls.Add(this.txtPedidoId);
             this.groupBoxPedido.Controls.Add(this.cbxStatus);
@@ -219,6 +221,8 @@
             this.groupBoxPedido.Controls.Add(this.labelMotivoCancelamento);
             this.groupBoxPedido.Controls.Add(this.labelObservacao);
             this.groupBoxPedido.Controls.Add(this.labelStatus);
+            this.groupBoxPedido.Controls.Add(this.cbxClienteId);
+            this.groupBoxPedido.Controls.Add(this.txtClienteId);
             this.groupBoxPedido.Location = new System.Drawing.Point(23, -1);
             this.groupBoxPedido.Name = "groupBoxPedido";
             this.groupBoxPedido.Size = new System.Drawing.Size(698, 253);
@@ -404,6 +408,16 @@
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
             // 
+            // txtClienteId
+            // 
+            this.txtClienteId.Enabled = false;
+            this.txtClienteId.Location = new System.Drawing.Point(179, 32);
+            this.txtClienteId.MaxLength = 100;
+            this.txtClienteId.Name = "txtClienteId";
+            this.txtClienteId.Size = new System.Drawing.Size(217, 20);
+            this.txtClienteId.TabIndex = 1;
+            this.txtClienteId.Visible = false;
+            // 
             // FrmPedidosAdicionarEditar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -473,5 +487,6 @@
         private System.Windows.Forms.Button btnAdicionarItem;
         private System.Windows.Forms.RichTextBox rtxDadosCliente;
         private System.Windows.Forms.ToolStripStatusLabel footerStatusPedidosAdicionarEditar;
+        private System.Windows.Forms.TextBox txtClienteId;
     }
 }

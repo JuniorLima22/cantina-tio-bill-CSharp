@@ -32,7 +32,7 @@ namespace cantina_tio_bill_CSharp
 
         private void FrmPedidosAdicionarEditar_Load(object sender, EventArgs e)
         {
-            this.cbxStatus.SelectedIndex = 0;
+            //this.cbxStatus.SelectedIndex = 0;
             listarClientes();
         }
 
@@ -145,10 +145,7 @@ namespace cantina_tio_bill_CSharp
 
                 getCliente(id);
                 this.btnSalvar.Enabled = true;
-            }
-            else
-            {
-                rtxDadosCliente.Text = "";
+            }else{
                 this.btnSalvar.Enabled = false;
             }
         }
@@ -206,7 +203,59 @@ namespace cantina_tio_bill_CSharp
             }
         }
 
-        /* Método responsavel por listar cliente pelo ID */
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            footerStatusPedidosAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                {
+                    cn.Open();
+
+                    var sql = @"
+                        UPDATE pedido SET
+                        observacao=@observacao, motivo_cancelamento=@motivo_cancelamento, status=@status, 
+                        data_edicao=@data_edicao
+                        WHERE id_pedido=@id_pedido
+                    ";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, cn))
+                    {
+                        footerStatusPedidosAdicionarEditar.Text = "Salvando dados.";
+                        statusStrip1.Refresh();
+
+                        DateTime dateTime = DateTime.Now;
+
+                        cmd.Parameters.AddWithValue("@id_pedido", Convert.ToInt32(this.id_pedido));
+                        //cmd.Parameters.AddWithValue("@cliente_id", txtClienteId.Text);
+                        cmd.Parameters.AddWithValue("@observacao", txtObservacao.Text);
+                        cmd.Parameters.AddWithValue("@status", cbxStatus.Text);
+                        cmd.Parameters.AddWithValue("@motivo_cancelamento", txtMotivoCancelamento.Text);
+                        cmd.Parameters.AddWithValue("@data_edicao", dateTime);
+
+                        cmd.ExecuteNonQuery();
+
+                        //getPedido(id_pedido);
+                        //botoes();
+                        //manipulaCampos();
+                    }
+
+                    footerStatusPedidosAdicionarEditar.Text = "Pronto.";
+                    statusStrip1.Refresh();
+                    mensagemOk("Pedido atualizado com sucesso.");
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao atualizar pedido \n\n" + ex.Message);
+                footerStatusPedidosAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
+
+        /* Método responsavel por listar pedido pelo ID */
         private void getPedido(int id)
         {
             footerStatusPedidosAdicionarEditar.Text = "Conectando, aguarde...";
@@ -218,7 +267,12 @@ namespace cantina_tio_bill_CSharp
                 {
                     cn.Open();
 
-                    var sql = "SELECT * FROM pedido WHERE id_pedido=" + id;
+                    var sql = @"
+                        SELECT * FROM pedido AS p
+                        LEFT JOIN cliente AS c
+                        ON p.cliente_id=c.id_cliente
+                        WHERE p.id_pedido=
+                    " + id;
 
                     using (SqlCommand cmd = new SqlCommand(sql, cn))
                     {
@@ -232,10 +286,18 @@ namespace cantina_tio_bill_CSharp
                                 if (dr.Read())
                                 {
                                     txtPedidoId.Text = dr["id_pedido"].ToString();
-                                    cbxClienteId.Text = dr["cliente_id"].ToString();
-                                    cbxStatus.Text = dr["status"].ToString();
                                     txtMotivoCancelamento.Text = dr["motivo_cancelamento"].ToString();
                                     txtObservacao.Text = dr["observacao"].ToString();
+
+                                    int cbx_status = cbxStatus.FindString(dr["status"].ToString());
+                                    cbxStatus.SelectedIndex = Convert.ToInt32(cbx_status);
+
+                                    this.cbxClienteId.Visible = false;
+                                    this.txtClienteId.Visible = true;
+                                    this.txtClienteId.Text = dr["nome"].ToString();
+
+                                    int cliente_id = Convert.ToInt32(dr["cliente_id"]);
+                                    getCliente(cliente_id);
                                 }
                             }
                         }
@@ -261,7 +323,7 @@ namespace cantina_tio_bill_CSharp
             this.cbxStatus.Text = string.Empty;
             this.txtMotivoCancelamento.Text = string.Empty;
             this.txtObservacao.Text = string.Empty;
-            this.rtxDadosCliente.Text = string.Empty;
+            //this.rtxDadosCliente.Text = string.Empty;
             this.cbxProdutoId.Text = string.Empty;
             this.txtQuantidade.Text = string.Empty;
             this.txtQuantidade.Text = string.Empty;
@@ -299,12 +361,13 @@ namespace cantina_tio_bill_CSharp
             {
                 this.cbxProdutoId.Enabled = true;
                 this.txtQuantidade.Enabled = true;
-
             }
             else
             {
                 this.cbxProdutoId.Enabled = false;
                 this.txtQuantidade.Enabled = false;
+
+                this.cbxStatus.SelectedIndex = 0;
             }
         }
 
@@ -318,6 +381,12 @@ namespace cantina_tio_bill_CSharp
         private void mensagemErro(string mensagem)
         {
             MessageBox.Show(mensagem, "Cantina Tio Bill", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            limparCampos();
+            this.Close();
         }
     }
 }
