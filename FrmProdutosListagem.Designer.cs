@@ -31,11 +31,11 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.footerStatusLabelClienteListagem = new System.Windows.Forms.ToolStripStatusLabel();
             this.footerStatusClienteListagem = new System.Windows.Forms.ToolStripStatusLabel();
+            this.footerStatusProdutoListagem = new System.Windows.Forms.ToolStripStatusLabel();
             this.dgvListagemProdutos = new System.Windows.Forms.DataGridView();
             this.btnAdicionarProduto = new System.Windows.Forms.Button();
             this.btnAlterarProduto = new System.Windows.Forms.Button();
             this.btnAtualizarListagem = new System.Windows.Forms.Button();
-            this.footerStatusProdutoListagem = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListagemProdutos)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +61,11 @@
             // 
             this.footerStatusClienteListagem.Name = "footerStatusClienteListagem";
             this.footerStatusClienteListagem.Size = new System.Drawing.Size(0, 17);
+            // 
+            // footerStatusProdutoListagem
+            // 
+            this.footerStatusProdutoListagem.Name = "footerStatusProdutoListagem";
+            this.footerStatusProdutoListagem.Size = new System.Drawing.Size(0, 17);
             // 
             // dgvListagemProdutos
             // 
@@ -94,6 +99,7 @@
             this.btnAlterarProduto.TabIndex = 14;
             this.btnAlterarProduto.Text = "Alterar Produto";
             this.btnAlterarProduto.UseVisualStyleBackColor = true;
+            this.btnAlterarProduto.Click += new System.EventHandler(this.btnAlterarProduto_Click);
             // 
             // btnAtualizarListagem
             // 
@@ -103,11 +109,6 @@
             this.btnAtualizarListagem.TabIndex = 13;
             this.btnAtualizarListagem.Text = "Atualizar Listagem";
             this.btnAtualizarListagem.UseVisualStyleBackColor = true;
-            // 
-            // footerStatusProdutoListagem
-            // 
-            this.footerStatusProdutoListagem.Name = "footerStatusProdutoListagem";
-            this.footerStatusProdutoListagem.Size = new System.Drawing.Size(0, 17);
             // 
             // FrmProdutosListagem
             // 

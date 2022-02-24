@@ -119,5 +119,13 @@ namespace cantina_tio_bill_CSharp
             FrmProdutoAdicionarEditar frm = new FrmProdutoAdicionarEditar(0);
             frm.ShowDialog();
         }
+
+        private void btnAlterarProduto_Click(object sender, EventArgs e)
+        {
+            var id = Convert.ToInt32(dgvListagemProdutos.Rows[dgvListagemProdutos.CurrentCell.RowIndex].Cells[0].Value);
+
+            FrmProdutoAdicionarEditar frm = new FrmProdutoAdicionarEditar(id);
+            frm.ShowDialog();
+        }
     }
 }

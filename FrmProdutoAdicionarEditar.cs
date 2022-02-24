@@ -23,6 +23,11 @@ namespace cantina_tio_bill_CSharp
             this.id_produto = id;
             cbxCategoria.SelectedIndex = 0;
 
+            if (this.id_produto > 0)
+            {
+                getProduto(id);
+            }
+
             botoes();
         }
 
@@ -75,6 +80,106 @@ namespace cantina_tio_bill_CSharp
                     footerStatusProdutoAdicionarEditar.Text = "Erro.";
                     statusStrip1.Refresh();
                 }
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (validaDados())
+            {
+                footerStatusProdutoAdicionarEditar.Text = "Conectando, aguarde...";
+                statusStrip1.Refresh();
+
+                try
+                {
+                    using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                    {
+                        cn.Open();
+
+                        var sql = @"
+                            UPDATE produto SET
+                            nome=@nome, descricao=@descricao, categoria=@categoria, preco=@preco, data_edicao=@data_edicao
+                            WHERE id_produto=
+                        " + this.id_produto;
+
+                        using (SqlCommand cmd = new SqlCommand(sql, cn))
+                        {
+                            footerStatusProdutoAdicionarEditar.Text = "Salvando dados do produto.";
+                            statusStrip1.Refresh();
+
+                            DateTime dateTime = DateTime.Now;
+
+                            cmd.Parameters.AddWithValue("@nome", txtNome.Text);
+                            cmd.Parameters.AddWithValue("@descricao", txtDescricao.Text);
+                            cmd.Parameters.AddWithValue("@categoria", cbxCategoria.Text);
+                            cmd.Parameters.AddWithValue("@preco", Convert.ToDouble(this.valor));
+                            cmd.Parameters.AddWithValue("@data_edicao", dateTime);
+
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        footerStatusProdutoAdicionarEditar.Text = "Pronto.";
+                        statusStrip1.Refresh();
+                        mensagemOk("Produto atualizado com sucesso.");
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    mensagemErro("Erro ao atualizar bairro \n\n" + ex.Message);
+                    footerStatusProdutoAdicionarEditar.Text = "Erro.";
+                    statusStrip1.Refresh();
+                }
+            }
+        }
+
+        /* Método responsavel por listar produto pelo ID */
+        private void getProduto(int id)
+        {
+            footerStatusProdutoAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                {
+                    cn.Open();
+
+                    var sql = "SELECT * FROM produto WHERE id_produto=" + id;
+
+                    using (SqlCommand cmd = new SqlCommand(sql, cn))
+                    {
+                        footerStatusProdutoAdicionarEditar.Text = "Buscando dados do produto.";
+                        statusStrip1.Refresh();
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            if (dr.HasRows)
+                            {
+                                if (dr.Read())
+                                {
+                                    txtProdutoId.Text = dr["id_produto"].ToString();
+                                    txtNome.Text = dr["nome"].ToString();
+                                    txtPreco.Text = dr["preco"].ToString();
+                                    txtDescricao.Text = dr["descricao"].ToString();
+
+                                    int cbx_categoria = cbxCategoria.FindString(dr["categoria"].ToString());
+                                    cbxCategoria.SelectedIndex = Convert.ToInt32(cbx_categoria);
+
+                                    this.valor = dr["preco"].ToString();
+                                }
+                            }
+                        }
+                    }
+
+                    footerStatusProdutoAdicionarEditar.Text = "Pronto.";
+                    statusStrip1.Refresh();
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao buscar produto \n\n" + ex.Message);
+                footerStatusProdutoAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
             }
         }
 

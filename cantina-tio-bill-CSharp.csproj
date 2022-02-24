@@ -108,6 +108,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmBairroListagem.resx">
       <DependentUpon>FrmBairroListagem.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmClientesAdicionarEditar.resx">
       <DependentUpon>FrmClientesAdicionarEditar.cs</DependentUpon>
