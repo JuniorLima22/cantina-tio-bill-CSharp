@@ -71,6 +71,12 @@ namespace cantina_tio_bill_CSharp
             frm.ShowDialog();
         }
 
+        private void cadastroDeProdutosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmProdutosListagem frm = new FrmProdutosListagem();
+            frm.ShowDialog();
+        }
+
         /* Método responsavel por exibir mensagem de sucesso */
         private void mensagemOk(string mensagem)
         {

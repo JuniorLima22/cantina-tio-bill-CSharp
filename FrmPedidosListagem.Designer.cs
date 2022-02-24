@@ -39,6 +39,7 @@
             this.dgvListagemPedidos = new System.Windows.Forms.DataGridView();
             this.btnAlterarPedido = new System.Windows.Forms.Button();
             this.btnAdicionarPedido = new System.Windows.Forms.Button();
+            this.cadastroDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListagemPedidos)).BeginInit();
@@ -89,7 +90,8 @@
             // 
             this.cadastroDeClienteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cadastroDeClientesToolStripMenuItem,
-            this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem});
+            this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem,
+            this.cadastroDeProdutosToolStripMenuItem});
             this.cadastroDeClienteToolStripMenuItem.Name = "cadastroDeClienteToolStripMenuItem";
             this.cadastroDeClienteToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.cadastroDeClienteToolStripMenuItem.Text = "Menu";
@@ -142,6 +144,13 @@
             this.btnAdicionarPedido.UseVisualStyleBackColor = true;
             this.btnAdicionarPedido.Click += new System.EventHandler(this.btnAdicionarPedido_Click);
             // 
+            // cadastroDeProdutosToolStripMenuItem
+            // 
+            this.cadastroDeProdutosToolStripMenuItem.Name = "cadastroDeProdutosToolStripMenuItem";
+            this.cadastroDeProdutosToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.cadastroDeProdutosToolStripMenuItem.Text = "Cadastro de Produtos";
+            this.cadastroDeProdutosToolStripMenuItem.Click += new System.EventHandler(this.cadastroDeProdutosToolStripMenuItem_Click);
+            // 
             // frmPedidosListagem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -184,6 +193,7 @@
         private System.Windows.Forms.Button btnAlterarPedido;
         private System.Windows.Forms.Button btnAdicionarPedido;
         private System.Windows.Forms.ToolStripStatusLabel footerStatusPedidoListagem;
+        private System.Windows.Forms.ToolStripMenuItem cadastroDeProdutosToolStripMenuItem;
     }
 }
 
