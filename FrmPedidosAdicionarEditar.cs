@@ -431,5 +431,18 @@ namespace cantina_tio_bill_CSharp
             limparCampos();
             this.Close();
         }
+
+        private void cbxStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxStatus.Text == "Cancelado")
+            {
+                txtMotivoCancelamento.Enabled = true;
+            }
+            else
+            {
+                txtMotivoCancelamento.Enabled = false;
+                txtMotivoCancelamento.Text = string.Empty;
+            }
+        }
     }
 }

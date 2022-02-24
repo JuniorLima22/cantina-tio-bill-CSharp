@@ -143,6 +143,7 @@
             this.cbxStatus.Name = "cbxStatus";
             this.cbxStatus.Size = new System.Drawing.Size(386, 21);
             this.cbxStatus.TabIndex = 3;
+            this.cbxStatus.SelectedIndexChanged += new System.EventHandler(this.cbxStatus_SelectedIndexChanged);
             // 
             // labelStatus
             // 
