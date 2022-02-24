@@ -91,8 +91,8 @@
             this.cadastroDeClientesToolStripMenuItem,
             this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem});
             this.cadastroDeClienteToolStripMenuItem.Name = "cadastroDeClienteToolStripMenuItem";
-            this.cadastroDeClienteToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.cadastroDeClienteToolStripMenuItem.Text = "Cadastros";
+            this.cadastroDeClienteToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.cadastroDeClienteToolStripMenuItem.Text = "Menu";
             // 
             // cadastroDeClientesToolStripMenuItem
             // 

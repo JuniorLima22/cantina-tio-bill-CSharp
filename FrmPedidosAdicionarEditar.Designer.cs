@@ -47,6 +47,7 @@
             this.groupBoxDadosCliente = new System.Windows.Forms.GroupBox();
             this.rtxDadosCliente = new System.Windows.Forms.RichTextBox();
             this.txtMotivoCancelamento = new System.Windows.Forms.TextBox();
+            this.txtClienteId = new System.Windows.Forms.TextBox();
             this.txtQuantidade = new System.Windows.Forms.NumericUpDown();
             this.labelPreco = new System.Windows.Forms.Label();
             this.labelQuantidade = new System.Windows.Forms.Label();
@@ -55,14 +56,13 @@
             this.txtPreco = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBoxItemListagem = new System.Windows.Forms.GroupBox();
-            this.btnAdicionarItem = new System.Windows.Forms.Button();
+            this.btnAdicionarProduto = new System.Windows.Forms.Button();
             this.btnAtualizarListagem = new System.Windows.Forms.Button();
-            this.btnExcluirItem = new System.Windows.Forms.Button();
+            this.btnExcluirProduto = new System.Windows.Forms.Button();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.groupBoxBtn2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnExcluir = new System.Windows.Forms.Button();
-            this.txtClienteId = new System.Windows.Forms.TextBox();
             this.statusStrip1.SuspendLayout();
             this.groupBoxPedido.SuspendLayout();
             this.groupBoxDadosCliente.SuspendLayout();
@@ -260,12 +260,32 @@
             this.txtMotivoCancelamento.Size = new System.Drawing.Size(385, 47);
             this.txtMotivoCancelamento.TabIndex = 4;
             // 
+            // txtClienteId
+            // 
+            this.txtClienteId.Enabled = false;
+            this.txtClienteId.Location = new System.Drawing.Point(179, 32);
+            this.txtClienteId.MaxLength = 100;
+            this.txtClienteId.Name = "txtClienteId";
+            this.txtClienteId.Size = new System.Drawing.Size(217, 20);
+            this.txtClienteId.TabIndex = 1;
+            this.txtClienteId.Visible = false;
+            // 
             // txtQuantidade
             // 
             this.txtQuantidade.Location = new System.Drawing.Point(245, 32);
+            this.txtQuantidade.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.txtQuantidade.Name = "txtQuantidade";
             this.txtQuantidade.Size = new System.Drawing.Size(164, 20);
             this.txtQuantidade.TabIndex = 12;
+            this.txtQuantidade.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // labelPreco
             // 
@@ -293,6 +313,7 @@
             this.cbxProdutoId.Name = "cbxProdutoId";
             this.cbxProdutoId.Size = new System.Drawing.Size(229, 21);
             this.cbxProdutoId.TabIndex = 11;
+            this.cbxProdutoId.SelectedIndexChanged += new System.EventHandler(this.cbxProdutoId_SelectedIndexChanged);
             // 
             // labelProduto
             // 
@@ -321,12 +342,13 @@
             this.dataGridView1.Location = new System.Drawing.Point(32, 322);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(655, 92);
             this.dataGridView1.TabIndex = 57;
             // 
             // groupBoxItemListagem
             // 
-            this.groupBoxItemListagem.Controls.Add(this.btnAdicionarItem);
+            this.groupBoxItemListagem.Controls.Add(this.btnAdicionarProduto);
             this.groupBoxItemListagem.Controls.Add(this.txtPreco);
             this.groupBoxItemListagem.Controls.Add(this.txtQuantidade);
             this.groupBoxItemListagem.Controls.Add(this.labelPreco);
@@ -340,14 +362,15 @@
             this.groupBoxItemListagem.TabStop = false;
             this.groupBoxItemListagem.Text = "Items do Pedido";
             // 
-            // btnAdicionarItem
+            // btnAdicionarProduto
             // 
-            this.btnAdicionarItem.Location = new System.Drawing.Point(549, 31);
-            this.btnAdicionarItem.Name = "btnAdicionarItem";
-            this.btnAdicionarItem.Size = new System.Drawing.Size(115, 23);
-            this.btnAdicionarItem.TabIndex = 14;
-            this.btnAdicionarItem.Text = "Adicionar";
-            this.btnAdicionarItem.UseVisualStyleBackColor = true;
+            this.btnAdicionarProduto.Location = new System.Drawing.Point(549, 31);
+            this.btnAdicionarProduto.Name = "btnAdicionarProduto";
+            this.btnAdicionarProduto.Size = new System.Drawing.Size(115, 23);
+            this.btnAdicionarProduto.TabIndex = 14;
+            this.btnAdicionarProduto.Text = "Adicionar";
+            this.btnAdicionarProduto.UseVisualStyleBackColor = true;
+            this.btnAdicionarProduto.Click += new System.EventHandler(this.btnAdicionarProduto_Click);
             // 
             // btnAtualizarListagem
             // 
@@ -358,14 +381,14 @@
             this.btnAtualizarListagem.Text = "Atualizar Listagem";
             this.btnAtualizarListagem.UseVisualStyleBackColor = true;
             // 
-            // btnExcluirItem
+            // btnExcluirProduto
             // 
-            this.btnExcluirItem.Location = new System.Drawing.Point(9, 74);
-            this.btnExcluirItem.Name = "btnExcluirItem";
-            this.btnExcluirItem.Size = new System.Drawing.Size(103, 23);
-            this.btnExcluirItem.TabIndex = 16;
-            this.btnExcluirItem.Text = "Excluir";
-            this.btnExcluirItem.UseVisualStyleBackColor = true;
+            this.btnExcluirProduto.Location = new System.Drawing.Point(9, 74);
+            this.btnExcluirProduto.Name = "btnExcluirProduto";
+            this.btnExcluirProduto.Size = new System.Drawing.Size(103, 23);
+            this.btnExcluirProduto.TabIndex = 16;
+            this.btnExcluirProduto.Text = "Excluir";
+            this.btnExcluirProduto.UseVisualStyleBackColor = true;
             // 
             // btnImprimir
             // 
@@ -381,7 +404,7 @@
             // 
             this.groupBoxBtn2.Controls.Add(this.btnAtualizarListagem);
             this.groupBoxBtn2.Controls.Add(this.btnImprimir);
-            this.groupBoxBtn2.Controls.Add(this.btnExcluirItem);
+            this.groupBoxBtn2.Controls.Add(this.btnExcluirProduto);
             this.groupBoxBtn2.Location = new System.Drawing.Point(699, 258);
             this.groupBoxBtn2.Name = "groupBoxBtn2";
             this.groupBoxBtn2.Size = new System.Drawing.Size(118, 163);
@@ -409,16 +432,6 @@
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
-            // 
-            // txtClienteId
-            // 
-            this.txtClienteId.Enabled = false;
-            this.txtClienteId.Location = new System.Drawing.Point(179, 32);
-            this.txtClienteId.MaxLength = 100;
-            this.txtClienteId.Name = "txtClienteId";
-            this.txtClienteId.Size = new System.Drawing.Size(217, 20);
-            this.txtClienteId.TabIndex = 1;
-            this.txtClienteId.Visible = false;
             // 
             // FrmPedidosAdicionarEditar
             // 
@@ -480,13 +493,13 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox groupBoxItemListagem;
         private System.Windows.Forms.Button btnAtualizarListagem;
-        private System.Windows.Forms.Button btnExcluirItem;
+        private System.Windows.Forms.Button btnExcluirProduto;
         private System.Windows.Forms.Button btnImprimir;
         private System.Windows.Forms.GroupBox groupBoxBtn2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.GroupBox groupBoxDadosCliente;
-        private System.Windows.Forms.Button btnAdicionarItem;
+        private System.Windows.Forms.Button btnAdicionarProduto;
         private System.Windows.Forms.RichTextBox rtxDadosCliente;
         private System.Windows.Forms.ToolStripStatusLabel footerStatusPedidosAdicionarEditar;
         private System.Windows.Forms.TextBox txtClienteId;

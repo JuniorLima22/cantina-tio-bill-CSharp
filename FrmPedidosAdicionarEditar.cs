@@ -33,6 +33,12 @@ namespace cantina_tio_bill_CSharp
         private void FrmPedidosAdicionarEditar_Load(object sender, EventArgs e)
         {
             listarClientes();
+            listarProdutos();
+
+            if (this.id_pedido > 0)
+            {
+                listarItemPedido(this.id_pedido);
+            }
         }
 
         /* Método responsavel por listar clientes */
@@ -358,6 +364,175 @@ namespace cantina_tio_bill_CSharp
             }
         }
 
+        /* Método responsavel por listar items do pedido */
+        private void listarItemPedido(int pedido_id)
+        {
+            footerStatusPedidosAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                {
+                    cn.Open();
+
+                    var sql = @"
+                        SELECT * FROM pedido_item
+                        WHERE pedido_id=
+                    " + pedido_id;
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(sql, cn))
+                    {
+                        using (DataTable dt = new DataTable())
+                        {
+                            da.Fill(dt);
+                            dataGridView1.DataSource = dt;
+                        }
+                    }
+
+                    footerStatusPedidosAdicionarEditar.Text = "Pronto.";
+                    statusStrip1.Refresh();
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao listar pedidos \n\n" + ex.Message);
+                footerStatusPedidosAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
+
+        /* Método responsavel por listar produtos */
+        private void listarProdutos()
+        {
+            footerStatusPedidosAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                {
+                    cn.Open();
+
+                    var sql = "SELECT id_produto, nome, descricao FROM produto";
+
+                    using (SqlCommand cm = new SqlCommand(sql, cn))
+                    {
+                        using (SqlDataReader dr = cm.ExecuteReader())
+                        {
+                            DataTable dt = new DataTable();
+                            dt.Load(dr);
+                            DataRow linha = dt.NewRow();
+                            linha["nome"] = "Selecione...";
+                            dt.Rows.InsertAt(linha, 0);
+                            cbxProdutoId.DataSource = dt;
+                            cbxProdutoId.ValueMember = "id_produto";
+                            cbxProdutoId.DisplayMember = "nome";
+                        }
+                    }
+
+                    footerStatusPedidosAdicionarEditar.Text = "Pronto.";
+                    statusStrip1.Refresh();
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao listar produto \n\n" + ex.Message);
+                footerStatusPedidosAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
+
+        /* Método responsavel por listar produto pelo ID */
+        private void getProduto(int id)
+        {
+            footerStatusPedidosAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                {
+                    cn.Open();
+
+                    var sql = @"
+                        SELECT *
+                        FROM produto
+                        WHERE id_produto=@id
+                    ";
+
+                    using (SqlCommand cm = new SqlCommand(sql, cn))
+                    {
+                        cm.Parameters.AddWithValue("@id", id);
+                        SqlDataReader dr = cm.ExecuteReader();
+
+                        if (dr.Read())
+                        {
+                            txtPreco.Text = dr["preco"].ToString();
+                        }
+                    }
+
+                    footerStatusPedidosAdicionarEditar.Text = "Pronto.";
+                    statusStrip1.Refresh();
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao listar produto pelo ID \n\n" + ex.Message);
+                footerStatusPedidosAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
+
+        private void btnAdicionarProduto_Click(object sender, EventArgs e)
+        {
+            footerStatusPedidosAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                {
+                    cn.Open();
+
+                    var sql = @"
+                        INSERT INTO pedido_item 
+                        (pedido_id, produto_id, quantidade)
+                        VALUES
+                        (@pedido_id, @produto_id, @quantidade)
+                    ";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, cn))
+                    {
+                        footerStatusPedidosAdicionarEditar.Text = "Salvando dados.";
+                        statusStrip1.Refresh();
+
+                        var produto_id = Convert.ToInt32(cbxProdutoId.SelectedValue);
+
+                        cmd.Parameters.AddWithValue("@pedido_id ", this.id_pedido);
+                        cmd.Parameters.AddWithValue("@produto_id ", produto_id);
+                        cmd.Parameters.AddWithValue("@quantidade", txtQuantidade.Text);
+
+                        cmd.ExecuteNonQuery();
+
+                        cbxProdutoId.SelectedIndex = 0;
+                        txtPreco.Text = string.Empty;
+                        txtQuantidade.Value = 1;
+
+                        listarItemPedido(this.id_pedido);
+                    }
+
+                    footerStatusPedidosAdicionarEditar.Text = "Pronto.";
+                    statusStrip1.Refresh();
+                    mensagemOk("Produto adicionado ao Pedido com sucesso.");
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao cadastrar pedido \n\n" + ex.Message);
+                footerStatusPedidosAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
+
         /* Método responsavel por limpar campos */
         private void limparCampos()
         {
@@ -381,9 +556,9 @@ namespace cantina_tio_bill_CSharp
                 this.btnEditar.Enabled = true;
                 this.btnExcluir.Enabled = true;
 
-                this.btnAdicionarItem.Enabled = true;
+                this.btnAdicionarProduto.Enabled = true;
                 this.btnAtualizarListagem.Enabled = true;
-                this.btnExcluirItem.Enabled = true;
+                this.btnExcluirProduto.Enabled = true;
             }
             else
             {
@@ -391,9 +566,9 @@ namespace cantina_tio_bill_CSharp
                 this.btnEditar.Enabled = false;
                 this.btnExcluir.Enabled = false;
 
-                this.btnAdicionarItem.Enabled = false;
+                this.btnAdicionarProduto.Enabled = false;
                 this.btnAtualizarListagem.Enabled = false;
-                this.btnExcluirItem.Enabled = false;
+                this.btnExcluirProduto.Enabled = false;
             }
         }
 
@@ -442,6 +617,23 @@ namespace cantina_tio_bill_CSharp
             {
                 txtMotivoCancelamento.Enabled = false;
                 txtMotivoCancelamento.Text = string.Empty;
+            }
+        }
+
+        private void cbxProdutoId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxProdutoId.SelectedIndex != 0)
+            {
+                var id = Convert.ToInt32(cbxProdutoId.SelectedValue);
+
+                getProduto(id);
+                btnAdicionarProduto.Enabled = true;
+            }
+            else
+            {
+                btnAdicionarProduto.Enabled = false;
+                txtPreco.Text = string.Empty;
+                txtQuantidade.Value = 1;
             }
         }
     }
