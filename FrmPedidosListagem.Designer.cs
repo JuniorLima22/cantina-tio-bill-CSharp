@@ -36,12 +36,12 @@
             this.cadastroDeClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastroDeClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvListagemPedidos = new System.Windows.Forms.DataGridView();
             this.btnAlterarPedido = new System.Windows.Forms.Button();
             this.btnAdicionarPedido = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListagemPedidos)).BeginInit();
             this.SuspendLayout();
             // 
             // bntAtualizarListagem
@@ -108,18 +108,19 @@
             this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem.Text = "Cadastro de bairro e taxa de entrega";
             this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem.Click += new System.EventHandler(this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem_Click);
             // 
-            // dataGridView1
+            // dgvListagemPedidos
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(13, 31);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(775, 347);
-            this.dataGridView1.TabIndex = 3;
+            this.dgvListagemPedidos.AllowUserToAddRows = false;
+            this.dgvListagemPedidos.AllowUserToDeleteRows = false;
+            this.dgvListagemPedidos.AllowUserToOrderColumns = true;
+            this.dgvListagemPedidos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvListagemPedidos.Location = new System.Drawing.Point(13, 31);
+            this.dgvListagemPedidos.Name = "dgvListagemPedidos";
+            this.dgvListagemPedidos.ReadOnly = true;
+            this.dgvListagemPedidos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvListagemPedidos.Size = new System.Drawing.Size(775, 347);
+            this.dgvListagemPedidos.TabIndex = 3;
+            this.dgvListagemPedidos.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvListagemPedidos_DataBindingComplete);
             // 
             // btnAlterarPedido
             // 
@@ -148,7 +149,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnAlterarPedido);
             this.Controls.Add(this.btnAdicionarPedido);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvListagemPedidos);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.bntAtualizarListagem);
@@ -164,7 +165,7 @@
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListagemPedidos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,7 +180,7 @@
         private System.Windows.Forms.ToolStripMenuItem cadastroDeClienteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cadastroDeClientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cadastroDeBairroETaxaDeEntregaToolStripMenuItem;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvListagemPedidos;
         private System.Windows.Forms.Button btnAlterarPedido;
         private System.Windows.Forms.Button btnAdicionarPedido;
         private System.Windows.Forms.ToolStripStatusLabel footerStatusPedidoListagem;

@@ -30,14 +30,20 @@ namespace cantina_tio_bill_CSharp
                 {
                     cn.Open();
 
-                    var sql = "SELECT * FROM pedido";
+                    var sql = @"
+                        SELECT p.*, c.*, b.nome AS nome_bairro FROM pedido AS p
+                        LEFT JOIN cliente AS c
+                        ON p.cliente_id=c.id_cliente
+                        LEFT JOIN bairro AS b
+                        ON c.bairro_id=b.id_bairro
+                    ";
 
                     using (SqlDataAdapter da = new SqlDataAdapter(sql, cn))
                     {
                         using (DataTable dt = new DataTable())
                         {
                             da.Fill(dt);
-                            dataGridView1.DataSource = dt;
+                            dgvListagemPedidos.DataSource = dt;
                         }
                     }
 
@@ -90,7 +96,7 @@ namespace cantina_tio_bill_CSharp
 
         private void btnAlterarPedido_Click(object sender, EventArgs e)
         {
-            var id = Convert.ToInt32(dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value);
+            var id = Convert.ToInt32(dgvListagemPedidos.Rows[dgvListagemPedidos.CurrentCell.RowIndex].Cells[0].Value);
 
             FrmPedidosAdicionarEditar frm = new FrmPedidosAdicionarEditar(id);
             frm.ShowDialog();
@@ -99,6 +105,56 @@ namespace cantina_tio_bill_CSharp
         private void frmPedidosListagem_Activated(object sender, EventArgs e)
         {
             listarPedidos();
+        }
+
+        private void dgvListagemPedidos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dgvListagemPedidos.Columns["id_pedido"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvListagemPedidos.Columns["status"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            foreach (DataGridViewColumn coluna in dgvListagemPedidos.Columns)
+            {
+                switch (coluna.Name)
+                {
+                    case "id_pedido":
+                        coluna.HeaderText = "Código";
+                        coluna.Width = 50;
+                        break;
+                    case "nome":
+                        coluna.HeaderText = "Cliente";
+                        coluna.Width = 120;
+                        coluna.DisplayIndex = 1;
+                        break;
+                    case "telefone":
+                        coluna.HeaderText = "Telefone";
+                        //coluna.Width = 120;
+                        coluna.DisplayIndex = 2;
+                        break;
+                    case "nome_bairro":
+                        coluna.HeaderText = "Bairro";
+                        coluna.DisplayIndex = 3;
+                        break;
+                    case "observacao":
+                        coluna.HeaderText = "Observação";
+                        coluna.Width = 180;
+                        //coluna.DisplayIndex = 2;
+                        break;
+                    case "status":
+                        coluna.HeaderText = "Status";
+                        coluna.Width = 65;
+                        //coluna.DisplayIndex = 1;
+                        break;
+                    case "data_cadastro":
+                        coluna.HeaderText = "Data de Cadastro";
+                        break;
+                    case "data_edicao":
+                        coluna.HeaderText = "Data de Edição";
+                        break;
+                    default:
+                        coluna.Visible = false;
+                        break;
+                }
+            }
         }
     }
 }
