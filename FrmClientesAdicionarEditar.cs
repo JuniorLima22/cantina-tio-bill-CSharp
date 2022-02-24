@@ -14,6 +14,7 @@ namespace cantina_tio_bill_CSharp
     public partial class FrmClientesAdicionarEditar : Form
     {
         private int id = 0;
+        private int bairroIdCliente = 0;
 
         public FrmClientesAdicionarEditar(int id)
         {
@@ -26,6 +27,52 @@ namespace cantina_tio_bill_CSharp
             }
 
             botoes();
+        }
+
+        private void FrmClientesAdicionarEditar_Load(object sender, EventArgs e)
+        {
+            listarBairros();
+            selecionarBairroCliente();
+        }
+
+        /* Método responsavel por listar clientes */
+        private void listarBairros()
+        {
+            footerStatusClienteAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                {
+                    cn.Open();
+
+                    var sql = "SELECT id_bairro, nome FROM bairro";
+
+                    using (SqlCommand cm = new SqlCommand(sql, cn))
+                    {
+                        using (SqlDataReader dr = cm.ExecuteReader())
+                        {
+                            DataTable dt = new DataTable();
+                            dt.Load(dr);
+                            DataRow linha = dt.NewRow();
+                            linha["nome"] = "Selecione...";
+                            dt.Rows.InsertAt(linha, 0);
+                            cbxBairroId.DataSource = dt;
+                            cbxBairroId.ValueMember = "id_bairro";
+                            cbxBairroId.DisplayMember = "nome";
+                        }
+                    }
+
+                    footerStatusClienteAdicionarEditar.Text = "Pronto.";
+                    statusStrip1.Refresh();
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao listar bairro \n\n" + ex.Message);
+                footerStatusClienteAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
         }
 
         /* Método responsavel por listar cliente pelo ID */
@@ -58,12 +105,13 @@ namespace cantina_tio_bill_CSharp
                                     txtEmail.Text = dr["email"].ToString();
                                     txtLogradouro.Text = dr["logradouro"].ToString();
                                     txtNumero.Text = dr["numero"].ToString();
-                                    cbxBairro.Text = dr["bairro_id"].ToString();
                                     txtComplemento.Text = dr["complemento"].ToString();
                                     txtReferencia.Text = dr["ponto_referencia"].ToString();
                                     txtCidade.Text = dr["cidade"].ToString();
                                     txtUf.Text = dr["uf"].ToString();
                                     txtObservacao.Text = dr["observacao"].ToString();
+
+                                    this.bairroIdCliente = Convert.ToInt32(dr["bairro_id"]);
                                 }
                             }
                         }
@@ -81,53 +129,13 @@ namespace cantina_tio_bill_CSharp
             }
         }
 
-        /* Método responsavel por exibir mensagem de sucesso */
-        private void mensagemOk(string mensagem)
+        /* Método responsavel por selecionar bairro do cliente */
+        private void selecionarBairroCliente()
         {
-            MessageBox.Show(mensagem,"Cantina Tio Bill", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        /* Método responsavel por exibir mensagem de erro */
-        private void mensagemErro(string mensagem)
-        {
-            MessageBox.Show(mensagem, "Cantina Tio Bill", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        /* Método responsavel por limpar campos */
-        private void limparCampos()
-        {
-            this.txtNome.Text = string.Empty;
-            this.txtTelefone.Text = string.Empty;
-            this.txtEmail.Text = string.Empty;
-            this.txtLogradouro.Text = string.Empty;
-            this.txtNumero.Text = string.Empty;
-            this.cbxBairro.Text = string.Empty;
-            this.txtComplemento.Text = string.Empty;
-            this.txtReferencia.Text = string.Empty;
-            this.txtCidade.Text = string.Empty;
-            this.txtUf.Text = string.Empty;
-            this.txtObservacao.Text = string.Empty;
-        }
-
-        /* Método responsavel por habilitar e desabilitar botões */
-        private void botoes()
-        {
-            if(this.id > 0)
+            if (this.bairroIdCliente > 0)
             {
-                this.btnSalvar.Enabled = false;
-                this.btnEditar.Enabled = true;
-                this.btnExcluir.Enabled = true;
-            }else{
-                this.btnSalvar.Enabled = true;
-                this.btnEditar.Enabled = false;
-                this.btnExcluir.Enabled = false;
+                cbxBairroId.SelectedValue = this.bairroIdCliente;
             }
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            limparCampos();
-            this.Close();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -153,7 +161,7 @@ namespace cantina_tio_bill_CSharp
                         footerStatusClienteAdicionarEditar.Text = "Salvando dados.";
                         statusStrip1.Refresh();
 
-                        var bairro_id = 5;
+                        int bairro_id = Convert.ToInt32(cbxBairroId.SelectedValue);
 
                         DateTime dateTime = DateTime.Now;
 
@@ -212,7 +220,7 @@ namespace cantina_tio_bill_CSharp
                         footerStatusClienteAdicionarEditar.Text = "Salvando dados.";
                         statusStrip1.Refresh();
 
-                        var bairro_id = 5;
+                        int bairro_id = Convert.ToInt32(cbxBairroId.SelectedValue);
 
                         DateTime dateTime = DateTime.Now;
 
@@ -288,6 +296,57 @@ namespace cantina_tio_bill_CSharp
                 footerStatusClienteAdicionarEditar.Text = "Erro.";
                 statusStrip1.Refresh();
             }
+        }
+
+        /* Método responsavel por exibir mensagem de sucesso */
+        private void mensagemOk(string mensagem)
+        {
+            MessageBox.Show(mensagem, "Cantina Tio Bill", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        /* Método responsavel por exibir mensagem de erro */
+        private void mensagemErro(string mensagem)
+        {
+            MessageBox.Show(mensagem, "Cantina Tio Bill", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        /* Método responsavel por limpar campos */
+        private void limparCampos()
+        {
+            txtNome.Text = string.Empty;
+            txtTelefone.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtLogradouro.Text = string.Empty;
+            txtNumero.Text = string.Empty;
+            cbxBairroId.SelectedIndex = 0;
+            txtComplemento.Text = string.Empty;
+            txtReferencia.Text = string.Empty;
+            txtCidade.Text = string.Empty;
+            txtUf.Text = string.Empty;
+            txtObservacao.Text = string.Empty;
+        }
+
+        /* Método responsavel por habilitar e desabilitar botões */
+        private void botoes()
+        {
+            if (this.id > 0)
+            {
+                this.btnSalvar.Enabled = false;
+                this.btnEditar.Enabled = true;
+                this.btnExcluir.Enabled = true;
+            }
+            else
+            {
+                this.btnSalvar.Enabled = true;
+                this.btnEditar.Enabled = false;
+                this.btnExcluir.Enabled = false;
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            limparCampos();
+            this.Close();
         }
     }
 }

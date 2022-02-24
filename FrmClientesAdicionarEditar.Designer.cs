@@ -41,7 +41,7 @@
             this.labelComplemento = new System.Windows.Forms.Label();
             this.txtComplemento = new System.Windows.Forms.TextBox();
             this.labelBairro = new System.Windows.Forms.Label();
-            this.cbxBairro = new System.Windows.Forms.ComboBox();
+            this.cbxBairroId = new System.Windows.Forms.ComboBox();
             this.labelUf = new System.Windows.Forms.Label();
             this.txtUf = new System.Windows.Forms.TextBox();
             this.labelCidade = new System.Windows.Forms.Label();
@@ -170,18 +170,14 @@
             this.labelBairro.TabIndex = 11;
             this.labelBairro.Text = "Bairro";
             // 
-            // cbxBairro
+            // cbxBairroId
             // 
-            this.cbxBairro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxBairro.FormattingEnabled = true;
-            this.cbxBairro.Items.AddRange(new object[] {
-            "teste1",
-            "teste2",
-            "teste3"});
-            this.cbxBairro.Location = new System.Drawing.Point(73, 190);
-            this.cbxBairro.Name = "cbxBairro";
-            this.cbxBairro.Size = new System.Drawing.Size(165, 21);
-            this.cbxBairro.TabIndex = 14;
+            this.cbxBairroId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxBairroId.FormattingEnabled = true;
+            this.cbxBairroId.Location = new System.Drawing.Point(73, 190);
+            this.cbxBairroId.Name = "cbxBairroId";
+            this.cbxBairroId.Size = new System.Drawing.Size(165, 21);
+            this.cbxBairroId.TabIndex = 14;
             // 
             // labelUf
             // 
@@ -323,7 +319,7 @@
             this.Controls.Add(this.txtUf);
             this.Controls.Add(this.labelCidade);
             this.Controls.Add(this.txtCidade);
-            this.Controls.Add(this.cbxBairro);
+            this.Controls.Add(this.cbxBairroId);
             this.Controls.Add(this.labelComplemento);
             this.Controls.Add(this.txtComplemento);
             this.Controls.Add(this.labelBairro);
@@ -343,6 +339,7 @@
             this.Name = "FrmClientesAdicionarEditar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastro de Cliente";
+            this.Load += new System.EventHandler(this.FrmClientesAdicionarEditar_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -365,7 +362,7 @@
         private System.Windows.Forms.Label labelComplemento;
         private System.Windows.Forms.TextBox txtComplemento;
         private System.Windows.Forms.Label labelBairro;
-        private System.Windows.Forms.ComboBox cbxBairro;
+        private System.Windows.Forms.ComboBox cbxBairroId;
         private System.Windows.Forms.Label labelUf;
         private System.Windows.Forms.TextBox txtUf;
         private System.Windows.Forms.Label labelCidade;

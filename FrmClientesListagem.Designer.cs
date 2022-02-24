@@ -43,9 +43,9 @@
             // 
             this.btnAdicionarNovoCliente.Location = new System.Drawing.Point(147, 387);
             this.btnAdicionarNovoCliente.Name = "btnAdicionarNovoCliente";
-            this.btnAdicionarNovoCliente.Size = new System.Drawing.Size(75, 23);
+            this.btnAdicionarNovoCliente.Size = new System.Drawing.Size(99, 23);
             this.btnAdicionarNovoCliente.TabIndex = 0;
-            this.btnAdicionarNovoCliente.Text = "Adicionar";
+            this.btnAdicionarNovoCliente.Text = "Adicionar Cliente";
             this.btnAdicionarNovoCliente.UseVisualStyleBackColor = true;
             this.btnAdicionarNovoCliente.Click += new System.EventHandler(this.btnAdicionarNovoCliente_Click);
             // 
@@ -58,6 +58,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(13, 13);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(775, 347);
             this.dataGridView1.TabIndex = 1;
             // 
@@ -94,11 +95,11 @@
             // 
             // btnAlterarCliente
             // 
-            this.btnAlterarCliente.Location = new System.Drawing.Point(228, 387);
+            this.btnAlterarCliente.Location = new System.Drawing.Point(252, 387);
             this.btnAlterarCliente.Name = "btnAlterarCliente";
-            this.btnAlterarCliente.Size = new System.Drawing.Size(75, 23);
+            this.btnAlterarCliente.Size = new System.Drawing.Size(93, 23);
             this.btnAlterarCliente.TabIndex = 4;
-            this.btnAlterarCliente.Text = "Alterar";
+            this.btnAlterarCliente.Text = "Alterar Cliente";
             this.btnAlterarCliente.UseVisualStyleBackColor = true;
             this.btnAlterarCliente.Click += new System.EventHandler(this.btnAlterarCliente_Click);
             // 

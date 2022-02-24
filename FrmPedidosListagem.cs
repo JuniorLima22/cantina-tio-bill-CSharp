@@ -127,7 +127,6 @@ namespace cantina_tio_bill_CSharp
                         break;
                     case "telefone":
                         coluna.HeaderText = "Telefone";
-                        //coluna.Width = 120;
                         coluna.DisplayIndex = 2;
                         break;
                     case "nome_bairro":
@@ -137,12 +136,10 @@ namespace cantina_tio_bill_CSharp
                     case "observacao":
                         coluna.HeaderText = "Observação";
                         coluna.Width = 180;
-                        //coluna.DisplayIndex = 2;
                         break;
                     case "status":
                         coluna.HeaderText = "Status";
                         coluna.Width = 65;
-                        //coluna.DisplayIndex = 1;
                         break;
                     case "data_cadastro":
                         coluna.HeaderText = "Data de Cadastro";
