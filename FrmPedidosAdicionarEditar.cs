@@ -377,8 +377,10 @@ namespace cantina_tio_bill_CSharp
                     cn.Open();
 
                     var sql = @"
-                        SELECT * FROM pedido_item
-                        WHERE pedido_id=
+                        SELECT * FROM pedido_item AS pi
+                        LEFT JOIN produto AS p
+                        ON pi.produto_id=p.id_produto
+                        WHERE pi.pedido_id=
                     " + pedido_id;
 
                     using (SqlDataAdapter da = new SqlDataAdapter(sql, cn))
@@ -386,7 +388,7 @@ namespace cantina_tio_bill_CSharp
                         using (DataTable dt = new DataTable())
                         {
                             da.Fill(dt);
-                            dataGridView1.DataSource = dt;
+                            dgvProdutoPedido.DataSource = dt;
                         }
                     }
 
@@ -527,7 +529,53 @@ namespace cantina_tio_bill_CSharp
             }
             catch (SqlException ex)
             {
-                mensagemErro("Erro ao cadastrar pedido \n\n" + ex.Message);
+                mensagemErro("Erro ao cadastrar produto ao pedido \n\n" + ex.Message);
+                footerStatusPedidosAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
+
+        private void btnExcluirProduto_Click(object sender, EventArgs e)
+        {
+            footerStatusPedidosAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+
+            try
+            {
+                if (DialogResult.Yes == MessageBox.Show("Tem certeza que deseja excluir este produto do registro?", "Cantina Tio Billo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                {
+
+                    using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                    {
+                        cn.Open();
+
+                        var sql = @"
+                            DELETE FROM pedido_item
+                            WHERE id_item=@id
+                        ";
+
+                        using (SqlCommand cmd = new SqlCommand(sql, cn))
+                        {
+                            footerStatusPedidosAdicionarEditar.Text = "Excluindo dados.";
+                            statusStrip1.Refresh();
+
+                            var id = Convert.ToInt32(dgvProdutoPedido.Rows[dgvProdutoPedido.CurrentCell.RowIndex].Cells[0].Value);
+
+                            cmd.Parameters.AddWithValue("@id", id);
+
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        footerStatusPedidosAdicionarEditar.Text = "Pronto.";
+                        statusStrip1.Refresh();
+                        mensagemOk("Produto do Pedido excluido com sucesso.");
+                        listarItemPedido(this.id_pedido);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao excluir produto do pedido \n\n" + ex.Message);
                 footerStatusPedidosAdicionarEditar.Text = "Erro.";
                 statusStrip1.Refresh();
             }
@@ -634,6 +682,48 @@ namespace cantina_tio_bill_CSharp
                 btnAdicionarProduto.Enabled = false;
                 txtPreco.Text = string.Empty;
                 txtQuantidade.Value = 1;
+            }
+        }
+
+        private void dgvProdutoPedido_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dgvProdutoPedido.Columns["id_item"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvProdutoPedido.Columns["preco"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvProdutoPedido.Columns["quantidade"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            foreach (DataGridViewColumn coluna in dgvProdutoPedido.Columns)
+            {
+                switch (coluna.Name)
+                {
+                    case "id_item":
+                        coluna.HeaderText = "Código";
+                        coluna.Width = 50;
+                        break;
+                    case "nome":
+                        coluna.HeaderText = "Produto";
+                        coluna.Width = 180;
+                        coluna.DisplayIndex = 1;
+                        break;
+                    case "descricao":
+                        coluna.HeaderText = "Descrição";
+                        coluna.Width = 220;
+                        coluna.DisplayIndex = 2;
+                        break;
+                    case "quantidade":
+                        coluna.HeaderText = "Quantidade";
+                        coluna.Width = 70;
+                        coluna.DisplayIndex = 1;
+                        break;
+                    case "preco":
+                        coluna.HeaderText = "Preço";
+                        coluna.Width = 70;
+                        coluna.DefaultCellStyle.Format = "C2";
+                        coluna.DisplayIndex = 4;
+                        break;
+                    default:
+                        coluna.Visible = false;
+                        break;
+                }
             }
         }
     }

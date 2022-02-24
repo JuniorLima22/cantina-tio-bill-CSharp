@@ -54,7 +54,7 @@
             this.cbxProdutoId = new System.Windows.Forms.ComboBox();
             this.labelProduto = new System.Windows.Forms.Label();
             this.txtPreco = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvProdutoPedido = new System.Windows.Forms.DataGridView();
             this.groupBoxItemListagem = new System.Windows.Forms.GroupBox();
             this.btnAdicionarProduto = new System.Windows.Forms.Button();
             this.btnAtualizarListagem = new System.Windows.Forms.Button();
@@ -67,7 +67,7 @@
             this.groupBoxPedido.SuspendLayout();
             this.groupBoxDadosCliente.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtQuantidade)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProdutoPedido)).BeginInit();
             this.groupBoxItemListagem.SuspendLayout();
             this.groupBoxBtn2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -83,7 +83,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.footerStatusClienteAdicionarEditar,
             this.footerStatusPedidosAdicionarEditar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 446);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(827, 22);
             this.statusStrip1.TabIndex = 50;
@@ -333,18 +333,19 @@
             this.txtPreco.Size = new System.Drawing.Size(124, 20);
             this.txtPreco.TabIndex = 13;
             // 
-            // dataGridView1
+            // dgvProdutoPedido
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(32, 322);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(655, 92);
-            this.dataGridView1.TabIndex = 57;
+            this.dgvProdutoPedido.AllowUserToAddRows = false;
+            this.dgvProdutoPedido.AllowUserToDeleteRows = false;
+            this.dgvProdutoPedido.AllowUserToOrderColumns = true;
+            this.dgvProdutoPedido.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProdutoPedido.Location = new System.Drawing.Point(32, 322);
+            this.dgvProdutoPedido.Name = "dgvProdutoPedido";
+            this.dgvProdutoPedido.ReadOnly = true;
+            this.dgvProdutoPedido.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvProdutoPedido.Size = new System.Drawing.Size(655, 115);
+            this.dgvProdutoPedido.TabIndex = 57;
+            this.dgvProdutoPedido.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvProdutoPedido_DataBindingComplete);
             // 
             // groupBoxItemListagem
             // 
@@ -357,7 +358,7 @@
             this.groupBoxItemListagem.Controls.Add(this.labelQuantidade);
             this.groupBoxItemListagem.Location = new System.Drawing.Point(23, 258);
             this.groupBoxItemListagem.Name = "groupBoxItemListagem";
-            this.groupBoxItemListagem.Size = new System.Drawing.Size(670, 162);
+            this.groupBoxItemListagem.Size = new System.Drawing.Size(670, 185);
             this.groupBoxItemListagem.TabIndex = 58;
             this.groupBoxItemListagem.TabStop = false;
             this.groupBoxItemListagem.Text = "Items do Pedido";
@@ -374,7 +375,7 @@
             // 
             // btnAtualizarListagem
             // 
-            this.btnAtualizarListagem.Location = new System.Drawing.Point(9, 45);
+            this.btnAtualizarListagem.Location = new System.Drawing.Point(9, 32);
             this.btnAtualizarListagem.Name = "btnAtualizarListagem";
             this.btnAtualizarListagem.Size = new System.Drawing.Size(103, 23);
             this.btnAtualizarListagem.TabIndex = 15;
@@ -383,17 +384,18 @@
             // 
             // btnExcluirProduto
             // 
-            this.btnExcluirProduto.Location = new System.Drawing.Point(9, 74);
+            this.btnExcluirProduto.Location = new System.Drawing.Point(9, 61);
             this.btnExcluirProduto.Name = "btnExcluirProduto";
             this.btnExcluirProduto.Size = new System.Drawing.Size(103, 23);
             this.btnExcluirProduto.TabIndex = 16;
             this.btnExcluirProduto.Text = "Excluir";
             this.btnExcluirProduto.UseVisualStyleBackColor = true;
+            this.btnExcluirProduto.Click += new System.EventHandler(this.btnExcluirProduto_Click);
             // 
             // btnImprimir
             // 
             this.btnImprimir.Enabled = false;
-            this.btnImprimir.Location = new System.Drawing.Point(9, 103);
+            this.btnImprimir.Location = new System.Drawing.Point(9, 90);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(103, 23);
             this.btnImprimir.TabIndex = 17;
@@ -407,7 +409,7 @@
             this.groupBoxBtn2.Controls.Add(this.btnExcluirProduto);
             this.groupBoxBtn2.Location = new System.Drawing.Point(699, 258);
             this.groupBoxBtn2.Name = "groupBoxBtn2";
-            this.groupBoxBtn2.Size = new System.Drawing.Size(118, 163);
+            this.groupBoxBtn2.Size = new System.Drawing.Size(118, 186);
             this.groupBoxBtn2.TabIndex = 59;
             this.groupBoxBtn2.TabStop = false;
             // 
@@ -437,10 +439,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(827, 450);
+            this.ClientSize = new System.Drawing.Size(827, 468);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxBtn2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvProdutoPedido);
             this.Controls.Add(this.groupBoxPedido);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBoxItemListagem);
@@ -457,7 +459,7 @@
             this.groupBoxPedido.PerformLayout();
             this.groupBoxDadosCliente.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtQuantidade)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProdutoPedido)).EndInit();
             this.groupBoxItemListagem.ResumeLayout(false);
             this.groupBoxItemListagem.PerformLayout();
             this.groupBoxBtn2.ResumeLayout(false);
@@ -490,7 +492,7 @@
         private System.Windows.Forms.ComboBox cbxProdutoId;
         private System.Windows.Forms.Label labelProduto;
         private System.Windows.Forms.TextBox txtPreco;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvProdutoPedido;
         private System.Windows.Forms.GroupBox groupBoxItemListagem;
         private System.Windows.Forms.Button btnAtualizarListagem;
         private System.Windows.Forms.Button btnExcluirProduto;
