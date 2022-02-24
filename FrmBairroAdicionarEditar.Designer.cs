@@ -143,6 +143,7 @@
             this.txtTaxaEntrega.Name = "txtTaxaEntrega";
             this.txtTaxaEntrega.Size = new System.Drawing.Size(120, 20);
             this.txtTaxaEntrega.TabIndex = 56;
+            this.txtTaxaEntrega.Text = "0";
             this.txtTaxaEntrega.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTaxaEntrega_KeyPress);
             this.txtTaxaEntrega.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTaxaEntrega_KeyUp);
             this.txtTaxaEntrega.Leave += new System.EventHandler(this.txtTaxaEntrega_Leave);

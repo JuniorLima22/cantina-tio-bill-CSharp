@@ -115,6 +115,9 @@
     <EmbeddedResource Include="FrmClientesListagem.resx">
       <DependentUpon>FrmClientesListagem.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmProdutoAdicionarEditar.resx">
+      <DependentUpon>FrmProdutoAdicionarEditar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmProdutosListagem.resx">
       <DependentUpon>FrmProdutosListagem.cs</DependentUpon>
     </EmbeddedResource>

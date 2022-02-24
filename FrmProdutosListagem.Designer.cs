@@ -84,6 +84,7 @@
             this.btnAdicionarProduto.TabIndex = 10;
             this.btnAdicionarProduto.Text = "Adicionar Produto";
             this.btnAdicionarProduto.UseVisualStyleBackColor = true;
+            this.btnAdicionarProduto.Click += new System.EventHandler(this.btnAdicionarProduto_Click);
             // 
             // btnAlterarProduto
             // 
