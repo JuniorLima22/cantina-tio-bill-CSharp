@@ -32,7 +32,6 @@ namespace cantina_tio_bill_CSharp
 
         private void FrmPedidosAdicionarEditar_Load(object sender, EventArgs e)
         {
-            //this.cbxStatus.SelectedIndex = 0;
             listarClientes();
         }
 
@@ -140,13 +139,17 @@ namespace cantina_tio_bill_CSharp
             {
                 var id = Convert.ToInt32(cbxClienteId.SelectedValue);
 
-                footerStatusPedidosAdicionarEditar.Text = "Debug: " + id.ToString();
-                statusStrip1.Refresh();
-
                 getCliente(id);
                 this.btnSalvar.Enabled = true;
-            }else{
+            }
+            else
+            {
                 this.btnSalvar.Enabled = false;
+            }
+
+            if (cbxClienteId.SelectedIndex == 0 && this.id_pedido == 0)
+            {
+                this.rtxDadosCliente.Text = string.Empty;
             }
         }
 
@@ -229,17 +232,12 @@ namespace cantina_tio_bill_CSharp
                         DateTime dateTime = DateTime.Now;
 
                         cmd.Parameters.AddWithValue("@id_pedido", Convert.ToInt32(this.id_pedido));
-                        //cmd.Parameters.AddWithValue("@cliente_id", txtClienteId.Text);
                         cmd.Parameters.AddWithValue("@observacao", txtObservacao.Text);
                         cmd.Parameters.AddWithValue("@status", cbxStatus.Text);
                         cmd.Parameters.AddWithValue("@motivo_cancelamento", txtMotivoCancelamento.Text);
                         cmd.Parameters.AddWithValue("@data_edicao", dateTime);
 
                         cmd.ExecuteNonQuery();
-
-                        //getPedido(id_pedido);
-                        //botoes();
-                        //manipulaCampos();
                     }
 
                     footerStatusPedidosAdicionarEditar.Text = "Pronto.";
@@ -250,6 +248,51 @@ namespace cantina_tio_bill_CSharp
             catch (SqlException ex)
             {
                 mensagemErro("Erro ao atualizar pedido \n\n" + ex.Message);
+                footerStatusPedidosAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            footerStatusPedidosAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+
+            try
+            {
+                if (DialogResult.Yes == MessageBox.Show("Tem certeza que deseja excluir este registro?", "Cantina Tio Billo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                {
+
+                    using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                    {
+                        cn.Open();
+
+                        var sql = @"
+                            DELETE FROM pedido
+                            WHERE id_pedido=@id
+                        ";
+
+                        using (SqlCommand cmd = new SqlCommand(sql, cn))
+                        {
+                            footerStatusPedidosAdicionarEditar.Text = "Excluindo dados.";
+                            statusStrip1.Refresh();
+
+                            cmd.Parameters.AddWithValue("@id", this.id_pedido);
+
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        footerStatusPedidosAdicionarEditar.Text = "Pronto.";
+                        statusStrip1.Refresh();
+                        mensagemOk("Pedido excluido com sucesso.");
+                        limparCampos();
+                        this.Close();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao excluir pedido \n\n" + ex.Message);
                 footerStatusPedidosAdicionarEditar.Text = "Erro.";
                 statusStrip1.Refresh();
             }
@@ -323,7 +366,7 @@ namespace cantina_tio_bill_CSharp
             this.cbxStatus.Text = string.Empty;
             this.txtMotivoCancelamento.Text = string.Empty;
             this.txtObservacao.Text = string.Empty;
-            //this.rtxDadosCliente.Text = string.Empty;
+            this.rtxDadosCliente.Text = string.Empty;
             this.cbxProdutoId.Text = string.Empty;
             this.txtQuantidade.Text = string.Empty;
             this.txtQuantidade.Text = string.Empty;
