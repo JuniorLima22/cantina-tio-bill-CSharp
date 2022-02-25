@@ -14,6 +14,7 @@ namespace cantina_tio_bill_CSharp
     public partial class FrmPedidosAdicionarEditar : Form
     {
         private int id_pedido = 0;
+        private double totalPrecoPorProduto = 0.00;
 
         public FrmPedidosAdicionarEditar(int id)
         {
@@ -34,6 +35,8 @@ namespace cantina_tio_bill_CSharp
         {
             listarClientes();
             listarProdutos();
+            totalPrecoItensPedido();
+            totalDescontoItensPedido();
 
             if (this.id_pedido > 0)
             {
@@ -549,6 +552,8 @@ namespace cantina_tio_bill_CSharp
                     footerStatusPedidosAdicionarEditar.Text = "Pronto.";
                     statusStrip1.Refresh();
                     mensagemOk("Produto adicionado ao Pedido com sucesso.");
+                    totalPrecoItensPedido();
+                    totalDescontoItensPedido();
                 }
             }
             catch (SqlException ex)
@@ -594,12 +599,128 @@ namespace cantina_tio_bill_CSharp
                         statusStrip1.Refresh();
                         mensagemOk("Produto do Pedido excluido com sucesso.");
                         listarItemPedido(this.id_pedido);
+                        totalPrecoItensPedido();
+                        totalDescontoItensPedido();
                     }
                 }
             }
             catch (SqlException ex)
             {
                 mensagemErro("Erro ao excluir produto do pedido \n\n" + ex.Message);
+                footerStatusPedidosAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
+
+        /* Método responsavel por cálculo total de quantidade x preço de todos item do pedido */
+        private void totalPrecoItensPedido()
+        {
+            footerStatusPedidosAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                {
+                    cn.Open();
+
+                    var sql = @"
+                        SELECT SUM(quantidade * preco) as totalPrecoPorProduto
+                        FROM pedido_item AS pi
+                        LEFT JOIN produto AS p
+                        ON pi.produto_id=p.id_produto
+                        WHERE pi.pedido_id=@id
+                    ";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, cn))
+                    {
+                        footerStatusPedidosAdicionarEditar.Text = "Cálculando itens de pedido.";
+                        statusStrip1.Refresh();
+
+                        cmd.Parameters.AddWithValue("@id", this.id_pedido);
+                        SqlDataReader dr = cmd.ExecuteReader();
+
+                        if (dr.Read())
+                        {
+                            if (dr["totalPrecoPorProduto"].ToString() == "")
+                            {
+                                labelResultadoTotalBrutoItens.Text = "R$ 0.00";
+                            }
+                            else
+                            {
+                                labelResultadoTotalBrutoItens.Text = "R$ " + dr["totalPrecoPorProduto"].ToString();
+                                this.totalPrecoPorProduto = Convert.ToDouble(dr["totalPrecoPorProduto"]);
+                            }
+                        }
+                    }
+
+                    footerStatusPedidosAdicionarEditar.Text = "Pronto.";
+                    statusStrip1.Refresh();
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao cálcular itens do pedido \n\n" + ex.Message);
+                footerStatusPedidosAdicionarEditar.Text = "Erro.";
+                statusStrip1.Refresh();
+            }
+        }
+
+        /* Método responsavel por cálculo de desconto itens do tipo quentinha */
+        private void totalDescontoItensPedido()
+        {
+            footerStatusPedidosAdicionarEditar.Text = "Conectando, aguarde...";
+            statusStrip1.Refresh();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                {
+                    cn.Open();
+
+                    var sql = @"
+                        SELECT SUM(quantidade) as qtdQuentinha
+                        FROM pedido_item AS pi
+                        LEFT JOIN produto AS p
+                        ON pi.produto_id = p.id_produto
+                        WHERE pi.pedido_id = @id
+                        AND categoria = 'Quentinha'
+                    ";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, cn))
+                    {
+                        footerStatusPedidosAdicionarEditar.Text = "Cálculando desconto itens de pedido.";
+                        statusStrip1.Refresh();
+
+                        cmd.Parameters.AddWithValue("@id", this.id_pedido);
+                        SqlDataReader dr = cmd.ExecuteReader();
+
+                        if (dr.Read())
+                        {
+                            int qtdQuentinha = String.IsNullOrEmpty(dr["qtdQuentinha"].ToString()) ? 0 : Convert.ToInt32(dr["qtdQuentinha"]);
+
+                            double porcentagem = 2.15 / 100;
+
+                            if (qtdQuentinha >= 5)
+                            {
+                                double desconto = this.totalPrecoPorProduto * porcentagem;
+                                labelResultadoTotalDescontoItens.Text = desconto.ToString("C");
+
+                                double total = this.totalPrecoPorProduto - (porcentagem * this.totalPrecoPorProduto);
+                                labelResultadoTotalLiquido.Text = total.ToString("C");
+                            }
+                            else
+                            {   
+                                labelResultadoTotalLiquido.Text = this.totalPrecoPorProduto.ToString("C");
+                            }
+                        }
+                    }
+
+                    footerStatusPedidosAdicionarEditar.Text = "Pronto.";
+                    statusStrip1.Refresh();
+                }
+            }
+            catch (SqlException ex)
+            {
+                mensagemErro("Erro ao cálcular itens do pedido \n\n" + ex.Message);
                 footerStatusPedidosAdicionarEditar.Text = "Erro.";
                 statusStrip1.Refresh();
             }
@@ -629,7 +750,6 @@ namespace cantina_tio_bill_CSharp
                 this.btnExcluir.Enabled = true;
 
                 this.btnAdicionarProduto.Enabled = true;
-                this.btnAtualizarListagem.Enabled = true;
                 this.btnExcluirProduto.Enabled = true;
             }
             else
@@ -639,7 +759,6 @@ namespace cantina_tio_bill_CSharp
                 this.btnExcluir.Enabled = false;
 
                 this.btnAdicionarProduto.Enabled = false;
-                this.btnAtualizarListagem.Enabled = false;
                 this.btnExcluirProduto.Enabled = false;
             }
         }
@@ -725,12 +844,12 @@ namespace cantina_tio_bill_CSharp
                         break;
                     case "nome":
                         coluna.HeaderText = "Produto";
-                        coluna.Width = 180;
+                        coluna.Width = 190;
                         coluna.DisplayIndex = 1;
                         break;
                     case "descricao":
                         coluna.HeaderText = "Descrição";
-                        coluna.Width = 220;
+                        coluna.Width = 240;
                         coluna.DisplayIndex = 2;
                         break;
                     case "quantidade":
@@ -743,6 +862,10 @@ namespace cantina_tio_bill_CSharp
                         coluna.Width = 70;
                         coluna.DefaultCellStyle.Format = "C2";
                         coluna.DisplayIndex = 4;
+                        break;
+                    case "categoria":
+                        coluna.HeaderText = "Categoria";
+                        coluna.Width = 90;
                         break;
                     default:
                         coluna.Visible = false;

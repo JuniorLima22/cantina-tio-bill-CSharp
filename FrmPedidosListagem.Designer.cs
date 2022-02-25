@@ -36,10 +36,10 @@
             this.cadastroDeClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastroDeClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cadastroDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvListagemPedidos = new System.Windows.Forms.DataGridView();
             this.btnAlterarPedido = new System.Windows.Forms.Button();
             this.btnAdicionarPedido = new System.Windows.Forms.Button();
-            this.cadastroDeProdutosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListagemPedidos)).BeginInit();
@@ -89,9 +89,9 @@
             // cadastroDeClienteToolStripMenuItem
             // 
             this.cadastroDeClienteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cadastroDeClientesToolStripMenuItem,
             this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem,
-            this.cadastroDeProdutosToolStripMenuItem});
+            this.cadastroDeProdutosToolStripMenuItem,
+            this.cadastroDeClientesToolStripMenuItem});
             this.cadastroDeClienteToolStripMenuItem.Name = "cadastroDeClienteToolStripMenuItem";
             this.cadastroDeClienteToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.cadastroDeClienteToolStripMenuItem.Text = "Menu";
@@ -109,6 +109,13 @@
             this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
             this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem.Text = "Cadastro de bairro e taxa de entrega";
             this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem.Click += new System.EventHandler(this.cadastroDeBairroETaxaDeEntregaToolStripMenuItem_Click);
+            // 
+            // cadastroDeProdutosToolStripMenuItem
+            // 
+            this.cadastroDeProdutosToolStripMenuItem.Name = "cadastroDeProdutosToolStripMenuItem";
+            this.cadastroDeProdutosToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.cadastroDeProdutosToolStripMenuItem.Text = "Cadastro de Produtos";
+            this.cadastroDeProdutosToolStripMenuItem.Click += new System.EventHandler(this.cadastroDeProdutosToolStripMenuItem_Click);
             // 
             // dgvListagemPedidos
             // 
@@ -143,13 +150,6 @@
             this.btnAdicionarPedido.Text = "Adicionar Pedido";
             this.btnAdicionarPedido.UseVisualStyleBackColor = true;
             this.btnAdicionarPedido.Click += new System.EventHandler(this.btnAdicionarPedido_Click);
-            // 
-            // cadastroDeProdutosToolStripMenuItem
-            // 
-            this.cadastroDeProdutosToolStripMenuItem.Name = "cadastroDeProdutosToolStripMenuItem";
-            this.cadastroDeProdutosToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
-            this.cadastroDeProdutosToolStripMenuItem.Text = "Cadastro de Produtos";
-            this.cadastroDeProdutosToolStripMenuItem.Click += new System.EventHandler(this.cadastroDeProdutosToolStripMenuItem_Click);
             // 
             // frmPedidosListagem
             // 
