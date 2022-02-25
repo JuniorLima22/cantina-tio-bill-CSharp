@@ -9,7 +9,7 @@ namespace cantina_tio_bill_CSharp
     internal class Conn
     {
         private static string server = "ASUS-JL";
-        private static string dataBase = "cantina_tio_bill";
+        private static string dataBase = "cantina_tio_bill_backup";
         private static string user = "sa";
         private static string password = "root";
 
