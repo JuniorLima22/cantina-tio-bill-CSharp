@@ -15,6 +15,7 @@ namespace cantina_tio_bill_CSharp
     {
         private int id_pedido = 0;
         private double totalPrecoPorProduto = 0.00;
+        private double taxaEntrega;
 
         public FrmPedidosAdicionarEditar(int id)
         {
@@ -127,6 +128,8 @@ namespace cantina_tio_bill_CSharp
 
                             rtxDadosCliente.Text = texto;
                             rtxDadosCliente.Enabled = true;
+
+                            this.taxaEntrega = Convert.ToDouble(dr["taxa_entrega"]);
                         }
                     }
 
@@ -705,17 +708,23 @@ namespace cantina_tio_bill_CSharp
                                 labelResultadoTotalDescontoItens.Text = desconto.ToString("C");
 
                                 double total = this.totalPrecoPorProduto - (porcentagem * this.totalPrecoPorProduto);
-                                labelResultadoTotalLiquido.Text = total.ToString("C");
+                                double resultadoTotalComDesconto = total + this.taxaEntrega;
+                                labelResultadoTotalLiquido.Text = resultadoTotalComDesconto.ToString("C");
                             }
                             else
-                            {   
-                                labelResultadoTotalLiquido.Text = this.totalPrecoPorProduto.ToString("C");
+                            {
+                                labelResultadoTotalDescontoItens.Text = "R$ 0.00";
+
+                                double resultadoTotaSemDesconto = this.totalPrecoPorProduto + this.taxaEntrega;
+                                //labelResultadoTotalLiquido.Text = this.totalPrecoPorProduto.ToString("C");
+                                labelResultadoTotalLiquido.Text = resultadoTotaSemDesconto.ToString("C");
                             }
                         }
                     }
 
                     footerStatusPedidosAdicionarEditar.Text = "Pronto.";
                     statusStrip1.Refresh();
+                    labelResultadoTaxaEntrega.Text = taxaEntrega.ToString("C");
                 }
             }
             catch (SqlException ex)

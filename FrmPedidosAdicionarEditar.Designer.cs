@@ -68,6 +68,8 @@
             this.labelTotalLiquido = new System.Windows.Forms.Label();
             this.labelResultadoTotalLiquido = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.labelTaxaEntrega = new System.Windows.Forms.Label();
+            this.labelResultadoTaxaEntrega = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.groupBoxPedido.SuspendLayout();
             this.groupBoxDadosCliente.SuspendLayout();
@@ -447,7 +449,7 @@
             this.labelResultadoTotalDescontoItens.AutoSize = true;
             this.labelResultadoTotalDescontoItens.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelResultadoTotalDescontoItens.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.labelResultadoTotalDescontoItens.Location = new System.Drawing.Point(445, 454);
+            this.labelResultadoTotalDescontoItens.Location = new System.Drawing.Point(431, 454);
             this.labelResultadoTotalDescontoItens.Name = "labelResultadoTotalDescontoItens";
             this.labelResultadoTotalDescontoItens.Size = new System.Drawing.Size(58, 16);
             this.labelResultadoTotalDescontoItens.TabIndex = 63;
@@ -457,7 +459,7 @@
             // 
             this.labelTotalDescontoItens.AutoSize = true;
             this.labelTotalDescontoItens.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTotalDescontoItens.Location = new System.Drawing.Point(274, 454);
+            this.labelTotalDescontoItens.Location = new System.Drawing.Point(253, 454);
             this.labelTotalDescontoItens.Name = "labelTotalDescontoItens";
             this.labelTotalDescontoItens.Size = new System.Drawing.Size(172, 16);
             this.labelTotalDescontoItens.TabIndex = 62;
@@ -467,7 +469,7 @@
             // 
             this.labelTotalLiquido.AutoSize = true;
             this.labelTotalLiquido.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTotalLiquido.Location = new System.Drawing.Point(538, 454);
+            this.labelTotalLiquido.Location = new System.Drawing.Point(700, 454);
             this.labelTotalLiquido.Name = "labelTotalLiquido";
             this.labelTotalLiquido.Size = new System.Drawing.Size(47, 16);
             this.labelTotalLiquido.TabIndex = 62;
@@ -478,7 +480,7 @@
             this.labelResultadoTotalLiquido.AutoSize = true;
             this.labelResultadoTotalLiquido.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelResultadoTotalLiquido.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.labelResultadoTotalLiquido.Location = new System.Drawing.Point(595, 454);
+            this.labelResultadoTotalLiquido.Location = new System.Drawing.Point(751, 454);
             this.labelResultadoTotalLiquido.Name = "labelResultadoTotalLiquido";
             this.labelResultadoTotalLiquido.Size = new System.Drawing.Size(58, 16);
             this.labelResultadoTotalLiquido.TabIndex = 63;
@@ -488,11 +490,32 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label1.Location = new System.Drawing.Point(284, 470);
+            this.label1.Location = new System.Drawing.Point(263, 470);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(125, 13);
             this.label1.TabIndex = 64;
             this.label1.Text = "* a partir de 5 quentinhas";
+            // 
+            // labelTaxaEntrega
+            // 
+            this.labelTaxaEntrega.AutoSize = true;
+            this.labelTaxaEntrega.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTaxaEntrega.Location = new System.Drawing.Point(496, 454);
+            this.labelTaxaEntrega.Name = "labelTaxaEntrega";
+            this.labelTaxaEntrega.Size = new System.Drawing.Size(126, 16);
+            this.labelTaxaEntrega.TabIndex = 62;
+            this.labelTaxaEntrega.Text = "Taxa de Entrega:";
+            // 
+            // labelResultadoTaxaEntrega
+            // 
+            this.labelResultadoTaxaEntrega.AutoSize = true;
+            this.labelResultadoTaxaEntrega.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelResultadoTaxaEntrega.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.labelResultadoTaxaEntrega.Location = new System.Drawing.Point(628, 454);
+            this.labelResultadoTaxaEntrega.Name = "labelResultadoTaxaEntrega";
+            this.labelResultadoTaxaEntrega.Size = new System.Drawing.Size(58, 16);
+            this.labelResultadoTaxaEntrega.TabIndex = 63;
+            this.labelResultadoTaxaEntrega.Text = "R$ 0.00";
             // 
             // FrmPedidosAdicionarEditar
             // 
@@ -500,8 +523,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(827, 507);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelResultadoTaxaEntrega);
             this.Controls.Add(this.labelResultadoTotalLiquido);
             this.Controls.Add(this.labelResultadoTotalDescontoItens);
+            this.Controls.Add(this.labelTaxaEntrega);
             this.Controls.Add(this.labelTotalLiquido);
             this.Controls.Add(this.labelTotalDescontoItens);
             this.Controls.Add(this.labelResultadoTotalBrutoItens);
@@ -574,5 +599,7 @@
         private System.Windows.Forms.Label labelTotalLiquido;
         private System.Windows.Forms.Label labelResultadoTotalLiquido;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelTaxaEntrega;
+        private System.Windows.Forms.Label labelResultadoTaxaEntrega;
     }
 }
