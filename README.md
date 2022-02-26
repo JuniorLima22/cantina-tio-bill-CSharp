@@ -39,30 +39,35 @@ Deve ser possível cancelar um pedido
 - [x] Cálculo dos valores total + desconto + taxa de entrega
 
 ### Demo
-<figure align="center">
+<p align="center"><sub>Cadastro de Bairro e Taxas de entrega</sub></p>
+
+<p align="center">
     <img alt="Cadastro de Bairro e Taxas de entrega" title="Cadastro de Bairro e Taxas de entrega" src="./assets/demo1.gif" />
-	<figcaption>Cadastro de Bairro e Taxas de entrega</figcaption>
-</figure>
+</p>
 
-<figure align="center">
+<p align="center"><sub>Cadastro de Produtos e Pratos</sub></p>
+
+<p align="center">
     <img alt="Cadastro de Produtos e Pratos" title="Cadastro de Produtos e Pratos" src="./assets/demo2.gif" />
-	<figcaption>Cadastro de Produtos</figcaption>
-</figure>
+</p>
 
-<figure align="center">
+<p align="center"><sub>Cadastro de Clientes</sub></p>
+
+<p align="center">
     <img alt="Cadastro de Clientes" title="Cadastro de Clientes" src="./assets/demo3.gif" />
-	<figcaption>Cadastro de Clientes</figcaption>
-</figure>
+</p>
 
-<figure align="center">
+<p align="center"><sub>Cadastro de Pedido</sub></p>
+
+<p align="center">
     <img alt="Cadastro de Pedido de Quentinha" title="Cadastro de Pedido de Quentinha" src="./assets/demo4.gif" />
-	<figcaption>Cadastro de Pedido</figcaption>
-</figure>
+</p>
 
-<figure align="center">
+<p align="center"><sub>Modelagem do Banco de Dados</sub></p>
+
+<p align="center">
     <img alt="Modelagem do Banco de Dados de Pedido de Quentinha" title="Modelagem do Banco de Dados de  Pedido de Quentinha" src="./assets/banner_ER.png" />
-	<figcaption>Modelagem do Banco de Dados</figcaption>
-</figure>
+</p>
 
 ### Pre-requisitos
 
@@ -80,7 +85,7 @@ git clone https://github.com/JuniorLima22/cantina-tio-bill-CSharp.git
 
 ### 💾 Rodando o Banco de Dados
 
-#### 3. Configure suas variáveis ​​de banco de dados no arquivo <code>Conn.cs</code>
+#### 3. Conp suas variáveis ​​de banco de dados no arquivo <code>Conn.cs</code>
 
 ```bash
 private static string server = "$SERVER";
