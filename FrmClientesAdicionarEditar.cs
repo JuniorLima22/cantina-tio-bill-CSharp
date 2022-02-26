@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -147,116 +148,125 @@ namespace cantina_tio_bill_CSharp
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            footerStatusClienteAdicionarEditar.Text = "Conectando, aguarde...";
-            statusStrip1.Refresh();
-
-            try
+            if (validaDados())
             {
-                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
-                {
-                    cn.Open();
-
-                    var sql = @"
-                        INSERT INTO cliente 
-                        (nome, telefone, email, logradouro, numero, bairro_id, complemento, ponto_referencia, cidade, uf, observacao, data_cadastro) 
-                        VALUES
-                        (@nome, @telefone, @email, @logradouro, @numero, @bairro_id, @complemento, @ponto_referencia, @cidade, @uf, @observacao, @data_cadastro)
-                    ";
-
-                    using (SqlCommand cmd = new SqlCommand(sql, cn))
-                    {
-                        footerStatusClienteAdicionarEditar.Text = "Salvando dados.";
-                        statusStrip1.Refresh();
-
-                        int bairro_id = Convert.ToInt32(cbxBairroId.SelectedValue);
-
-                        DateTime dateTime = DateTime.Now;
-
-                        cmd.Parameters.AddWithValue("@nome", txtNome.Text);
-                        cmd.Parameters.AddWithValue("@telefone", txtTelefone.Text);
-                        cmd.Parameters.AddWithValue("@email", txtEmail.Text);
-                        cmd.Parameters.AddWithValue("@logradouro", txtLogradouro.Text);
-                        cmd.Parameters.AddWithValue("@numero", txtNumero.Text);
-                        cmd.Parameters.AddWithValue("@bairro_id", bairro_id);
-                        cmd.Parameters.AddWithValue("@complemento", txtComplemento.Text);
-                        cmd.Parameters.AddWithValue("@ponto_referencia", txtReferencia.Text);
-                        cmd.Parameters.AddWithValue("@cidade", txtCidade.Text);
-                        cmd.Parameters.AddWithValue("@uf", cbxUf.Text);
-                        cmd.Parameters.AddWithValue("@observacao", txtObservacao.Text);
-                        cmd.Parameters.AddWithValue("@data_cadastro", dateTime);
-
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    footerStatusClienteAdicionarEditar.Text = "Pronto.";
-                    statusStrip1.Refresh();
-                    limparCampos();
-                    mensagemOk("Cliente cadastrado com sucesso.");
-                }
-            }
-            catch (SqlException ex)
-            {
-                mensagemErro("Erro ao cadastrar cliente \n\n" + ex.Message);
-                footerStatusClienteAdicionarEditar.Text = "Erro.";
+                footerStatusClienteAdicionarEditar.Text = "Conectando, aguarde...";
                 statusStrip1.Refresh();
+
+                try
+                {
+                    using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                    {
+                        cn.Open();
+
+                        var sql = @"
+                            INSERT INTO cliente 
+                            (nome, telefone, email, logradouro, numero, bairro_id, complemento, ponto_referencia, cidade, uf, observacao, data_cadastro) 
+                            VALUES
+                            (@nome, @telefone, @email, @logradouro, @numero, @bairro_id, @complemento, @ponto_referencia, @cidade, @uf, @observacao, @data_cadastro)
+                        ";
+
+                        using (SqlCommand cmd = new SqlCommand(sql, cn))
+                        {
+                            footerStatusClienteAdicionarEditar.Text = "Salvando dados.";
+                            statusStrip1.Refresh();
+
+                            int bairro_id = Convert.ToInt32(cbxBairroId.SelectedValue);
+
+                            DateTime dateTime = DateTime.Now;
+
+                            cmd.Parameters.AddWithValue("@nome", txtNome.Text);
+                            cmd.Parameters.AddWithValue("@telefone", txtTelefone.Text);
+                            cmd.Parameters.AddWithValue("@email", txtEmail.Text);
+                            cmd.Parameters.AddWithValue("@logradouro", txtLogradouro.Text);
+                            cmd.Parameters.AddWithValue("@numero", txtNumero.Text);
+                            cmd.Parameters.AddWithValue("@bairro_id", bairro_id);
+                            cmd.Parameters.AddWithValue("@complemento", txtComplemento.Text);
+                            cmd.Parameters.AddWithValue("@ponto_referencia", txtReferencia.Text);
+                            cmd.Parameters.AddWithValue("@cidade", txtCidade.Text);
+                            cmd.Parameters.AddWithValue("@uf", cbxUf.Text);
+                            cmd.Parameters.AddWithValue("@observacao", txtObservacao.Text);
+                            cmd.Parameters.AddWithValue("@data_cadastro", dateTime);
+
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        footerStatusClienteAdicionarEditar.Text = "Pronto.";
+                        statusStrip1.Refresh();
+                        limparCampos();
+                        resetaLabel();
+                        mensagemOk("Cliente cadastrado com sucesso.");
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    mensagemErro("Erro ao cadastrar cliente \n\n" + ex.Message);
+                    footerStatusClienteAdicionarEditar.Text = "Erro.";
+                    statusStrip1.Refresh();
+                }
             }
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            footerStatusClienteAdicionarEditar.Text = "Conectando, aguarde...";
-            statusStrip1.Refresh();
-
-            try
+            if (validaDados())
             {
-                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
-                {
-                    cn.Open();
 
-                    var sql = @"
-                        UPDATE cliente SET
-                        nome=@nome, telefone=@telefone, email=@email, logradouro=@logradouro, 
-                        numero=@numero, bairro_id=@bairro_id, complemento=@complemento, 
-                        ponto_referencia=@ponto_referencia, cidade=@cidade, uf=@uf, observacao=@observacao,
-                        data_edicao=@data_edicao
-                        WHERE id_cliente=
-                    "+this.id;
-
-                    using (SqlCommand cmd = new SqlCommand(sql, cn))
-                    {
-                        footerStatusClienteAdicionarEditar.Text = "Salvando dados.";
-                        statusStrip1.Refresh();
-
-                        int bairro_id = Convert.ToInt32(cbxBairroId.SelectedValue);
-
-                        DateTime dateTime = DateTime.Now;
-
-                        cmd.Parameters.AddWithValue("@nome", txtNome.Text);
-                        cmd.Parameters.AddWithValue("@telefone", txtTelefone.Text);
-                        cmd.Parameters.AddWithValue("@email", txtEmail.Text);
-                        cmd.Parameters.AddWithValue("@logradouro", txtLogradouro.Text);
-                        cmd.Parameters.AddWithValue("@numero", txtNumero.Text);
-                        cmd.Parameters.AddWithValue("@bairro_id", bairro_id);
-                        cmd.Parameters.AddWithValue("@complemento", txtComplemento.Text);
-                        cmd.Parameters.AddWithValue("@ponto_referencia", txtReferencia.Text);
-                        cmd.Parameters.AddWithValue("@cidade", txtCidade.Text);
-                        cmd.Parameters.AddWithValue("@uf", cbxUf.Text);
-                        cmd.Parameters.AddWithValue("@observacao", txtObservacao.Text);
-                        cmd.Parameters.AddWithValue("@data_edicao", dateTime);
-
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    footerStatusClienteAdicionarEditar.Text = "Pronto.";
-                    statusStrip1.Refresh();
-                    mensagemOk("Cliente atualizado com sucesso.");
-                }
-            }
-            catch (SqlException ex)
-            {
-                mensagemErro("Erro ao atualizar cliente \n\n" + ex.Message);
-                footerStatusClienteAdicionarEditar.Text = "Erro.";
+                footerStatusClienteAdicionarEditar.Text = "Conectando, aguarde...";
                 statusStrip1.Refresh();
+
+                try
+                {
+                    using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                    {
+                        cn.Open();
+
+                        var sql = @"
+                            UPDATE cliente SET
+                            nome=@nome, telefone=@telefone, email=@email, logradouro=@logradouro, 
+                            numero=@numero, bairro_id=@bairro_id, complemento=@complemento, 
+                            ponto_referencia=@ponto_referencia, cidade=@cidade, uf=@uf, observacao=@observacao,
+                            data_edicao=@data_edicao
+                            WHERE id_cliente=
+                        "+this.id;
+
+                        using (SqlCommand cmd = new SqlCommand(sql, cn))
+                        {
+                            footerStatusClienteAdicionarEditar.Text = "Salvando dados.";
+                            statusStrip1.Refresh();
+
+                            int bairro_id = Convert.ToInt32(cbxBairroId.SelectedValue);
+
+                            DateTime dateTime = DateTime.Now;
+
+                            cmd.Parameters.AddWithValue("@nome", txtNome.Text);
+                            cmd.Parameters.AddWithValue("@telefone", txtTelefone.Text);
+                            cmd.Parameters.AddWithValue("@email", txtEmail.Text);
+                            cmd.Parameters.AddWithValue("@logradouro", txtLogradouro.Text);
+                            cmd.Parameters.AddWithValue("@numero", txtNumero.Text);
+                            cmd.Parameters.AddWithValue("@bairro_id", bairro_id);
+                            cmd.Parameters.AddWithValue("@complemento", txtComplemento.Text);
+                            cmd.Parameters.AddWithValue("@ponto_referencia", txtReferencia.Text);
+                            cmd.Parameters.AddWithValue("@cidade", txtCidade.Text);
+                            cmd.Parameters.AddWithValue("@uf", cbxUf.Text);
+                            cmd.Parameters.AddWithValue("@observacao", txtObservacao.Text);
+                            cmd.Parameters.AddWithValue("@data_edicao", dateTime);
+
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        footerStatusClienteAdicionarEditar.Text = "Pronto.";
+                        statusStrip1.Refresh();
+                        resetaLabel();
+                        mensagemOk("Cliente atualizado com sucesso.");
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    mensagemErro("Erro ao atualizar cliente \n\n" + ex.Message);
+                    footerStatusClienteAdicionarEditar.Text = "Erro.";
+                    statusStrip1.Refresh();
+                }
             }
         }
 
@@ -354,6 +364,91 @@ namespace cantina_tio_bill_CSharp
         {
             limparCampos();
             this.Close();
+        }
+
+        /* Método responsavel por validar campos requiridos */
+        private Boolean validaDados()
+        {
+            if (String.IsNullOrWhiteSpace(txtNome.Text))
+            {
+                labelNome.ForeColor = Color.Red;
+                mensagemErro("Campo Nome deve ser preenchido");
+                return false;
+            }
+
+            if (txtTelefone.Text == "(  )      -")
+            {
+                labelTelefone.ForeColor = Color.Red;
+                mensagemErro("Campo Telefone deve ser preenchido");
+                return false;
+            }
+
+            if (txtTelefone.Text.Length < 15)
+            {
+                labelTelefone.ForeColor = Color.Red;
+                mensagemErro("Campo Telefone inválido");
+                return false;
+            }
+            else
+            {
+                labelTelefone.ForeColor = Color.Black;
+            }
+
+            if (!String.IsNullOrEmpty(txtEmail.Text))
+            {
+                if (new EmailAddressAttribute().IsValid(txtEmail.Text))
+                {
+                    labelEmail.ForeColor = Color.Black;
+                }
+                else
+                {
+                    labelEmail.ForeColor = Color.Red;
+                    mensagemErro("Campo E-mail invalido\n\n Preencha conforme exemplo:\n seuemail@gmail.com");
+                    return false;
+                }
+            }
+
+            if (String.IsNullOrEmpty(cbxBairroId.Text) || cbxBairroId.Text == "Selecione...")
+            {
+                labelBairro.ForeColor = Color.Red;
+                mensagemErro("Campo Bairro deve ser selecionado");
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(txtLogradouro.Text))
+            {
+                labelLogradouro.ForeColor = Color.Red;
+                mensagemErro("Campo Endereço deve ser preenchido");
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(txtCidade.Text))
+            {
+                labelCidade.ForeColor = Color.Red;
+                mensagemErro("Campo Cidade deve ser preenchido");
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(cbxUf.Text) || cbxUf.Text == "Selecione...")
+            {
+                labelUf.ForeColor = Color.Red;
+                mensagemErro("Campo UF deve ser selecionado");
+                return false;
+            }
+
+            return true;
+        }
+
+        /* Método responsavel por setar cor da fonte do label */
+        private void resetaLabel()
+        {
+            labelNome.ForeColor = Color.Black;
+            labelTelefone.ForeColor = Color.Black;
+            labelEmail.ForeColor = Color.Black;
+            labelBairro.ForeColor = Color.Black;
+            labelLogradouro.ForeColor = Color.Black;
+            labelCidade.ForeColor = Color.Black;
+            labelUf.ForeColor = Color.Black;
         }
     }
 }
