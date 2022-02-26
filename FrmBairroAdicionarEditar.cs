@@ -125,44 +125,48 @@ namespace cantina_tio_bill_CSharp
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            footerStatusBairroAdicionarEditar.Text = "Conectando, aguarde...";
-            statusStrip1.Refresh();            
-            
-            try
+            if (validaDados())
             {
-                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
-                {
-                    cn.Open();
+                footerStatusBairroAdicionarEditar.Text = "Conectando, aguarde...";
+                statusStrip1.Refresh();
 
-                    var sql = @"
+                try
+                {
+                    using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                    {
+                        cn.Open();
+
+                        var sql = @"
                         INSERT INTO bairro 
                         (nome, taxa_entrega) 
                         VALUES
                         (@nome, @taxa_entrega)
                     ";
 
-                    using (SqlCommand cmd = new SqlCommand(sql, cn))
-                    {
-                        footerStatusBairroAdicionarEditar.Text = "Salvando dados.";
+                        using (SqlCommand cmd = new SqlCommand(sql, cn))
+                        {
+                            footerStatusBairroAdicionarEditar.Text = "Salvando dados.";
+                            statusStrip1.Refresh();
+
+                            cmd.Parameters.AddWithValue("@nome", txtNome.Text);
+                            cmd.Parameters.AddWithValue("@taxa_entrega", Convert.ToDouble(this.valor));
+
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        footerStatusBairroAdicionarEditar.Text = "Pronto.";
                         statusStrip1.Refresh();
-
-                        cmd.Parameters.AddWithValue("@nome", txtNome.Text);
-                        cmd.Parameters.AddWithValue("@taxa_entrega", Convert.ToDouble(this.valor));
-
-                        cmd.ExecuteNonQuery();
+                        limparCampos();
+                        resetaLabel();
+                        mensagemOk("Bairro cadastrado com sucesso.");
                     }
-
-                    footerStatusBairroAdicionarEditar.Text = "Pronto.";
-                    statusStrip1.Refresh();
-                    limparCampos();
-                    mensagemOk("Bairro cadastrado com sucesso.");
                 }
-            }
-            catch (SqlException ex)
-            {
-                mensagemErro("Erro ao cadastrar bairro \n\n" + ex.Message);
-                footerStatusBairroAdicionarEditar.Text = "Erro.";
-                statusStrip1.Refresh();
+                catch (SqlException ex)
+                {
+                    mensagemErro("Erro ao cadastrar bairro \n\n" + ex.Message);
+                    footerStatusBairroAdicionarEditar.Text = "Erro.";
+                    statusStrip1.Refresh();
+                }
             }
         }
 
@@ -214,42 +218,46 @@ namespace cantina_tio_bill_CSharp
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            footerStatusBairroAdicionarEditar.Text = "Conectando, aguarde...";
-            statusStrip1.Refresh();
-
-            try
+            if (validaDados())
             {
-                using (SqlConnection cn = new SqlConnection(Conn.StrCon))
-                {
-                    cn.Open();
+                footerStatusBairroAdicionarEditar.Text = "Conectando, aguarde...";
+                statusStrip1.Refresh();
 
-                    var sql = @"
+                try
+                {
+                    using (SqlConnection cn = new SqlConnection(Conn.StrCon))
+                    {
+                        cn.Open();
+
+                        var sql = @"
                         UPDATE bairro SET
                         nome=@nome, taxa_entrega=@taxa_entrega
                         WHERE id_bairro=
                     " + this.id;
 
-                    using (SqlCommand cmd = new SqlCommand(sql, cn))
-                    {
-                        footerStatusBairroAdicionarEditar.Text = "Salvando dados.";
+                        using (SqlCommand cmd = new SqlCommand(sql, cn))
+                        {
+                            footerStatusBairroAdicionarEditar.Text = "Salvando dados.";
+                            statusStrip1.Refresh();
+
+                            cmd.Parameters.AddWithValue("@nome", txtNome.Text);
+                            cmd.Parameters.AddWithValue("@taxa_entrega", Convert.ToDouble(this.valor));
+
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        footerStatusBairroAdicionarEditar.Text = "Pronto.";
                         statusStrip1.Refresh();
-
-                        cmd.Parameters.AddWithValue("@nome", txtNome.Text);
-                        cmd.Parameters.AddWithValue("@taxa_entrega", Convert.ToDouble(this.valor));
-
-                        cmd.ExecuteNonQuery();
+                        resetaLabel();
+                        mensagemOk("Bairro atualizado com sucesso.");
                     }
-
-                    footerStatusBairroAdicionarEditar.Text = "Pronto.";
-                    statusStrip1.Refresh();
-                    mensagemOk("Bairro atualizado com sucesso.");
                 }
-            }
-            catch (SqlException ex)
-            {
-                mensagemErro("Erro ao atualizar bairro \n\n" + ex.Message);
-                footerStatusBairroAdicionarEditar.Text = "Erro.";
-                statusStrip1.Refresh();
+                catch (SqlException ex)
+                {
+                    mensagemErro("Erro ao atualizar bairro \n\n" + ex.Message);
+                    footerStatusBairroAdicionarEditar.Text = "Erro.";
+                    statusStrip1.Refresh();
+                }
             }
         }
 
@@ -302,6 +310,32 @@ namespace cantina_tio_bill_CSharp
                 footerStatusBairroAdicionarEditar.Text = "Erro.";
                 statusStrip1.Refresh();
             }
+        }
+
+        /* Método responsavel por validar campos requiridos */
+        private Boolean validaDados()
+        {
+            if (String.IsNullOrWhiteSpace(txtNome.Text))
+            {
+                labelNome.ForeColor = Color.Red;
+                mensagemErro("Campo Bairro deve ser preenchido");
+                return false;
+            }
+            if (txtTaxaEntrega.Text == "0" || txtTaxaEntrega.Text == "R$ 0,00")
+            {
+                labelTaxaEntrega.ForeColor = Color.Red;
+                mensagemErro("Campo Taxa de Entrega deve ser preenchido");
+                return false;
+            }
+
+            return true;
+        }
+
+        /* Método responsavel por setar cor da fonte do label */
+        private void resetaLabel()
+        {
+            labelNome.ForeColor = Color.Black;
+            labelTaxaEntrega.ForeColor = Color.Black;
         }
     }
 }
