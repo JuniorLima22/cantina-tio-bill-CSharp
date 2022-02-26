@@ -39,38 +39,30 @@ Deve ser possível cancelar um pedido
 - [x] Cálculo dos valores total + desconto + taxa de entrega
 
 ### Demo
-<p align="center">
+<figure align="center">
     <img alt="Cadastro de Bairro e Taxas de entrega" title="Cadastro de Bairro e Taxas de entrega" src="./assets/demo1.gif" />
-</p>
+	<figcaption>Cadastro de Bairro e Taxas de entrega</figcaption>
+</figure>
 
-<p align="center">
-    <img alt="Cadastro de Produtos e Pratos" 
-title="Cadastro de Produtos e Pratos" src="./
-assets/demo2.gif" />
-</p>
+<figure align="center">
+    <img alt="Cadastro de Produtos e Pratos" title="Cadastro de Produtos e Pratos" src="./assets/demo2.gif" />
+	<figcaption>Cadastro de Produtos</figcaption>
+</figure>
 
-<p align="center">
-    <img alt="Cadastro de Clientes" 
-title="Cadastro de Clientes" src="./
-assets/demo3.gif" />
-</p>
+<figure align="center">
+    <img alt="Cadastro de Clientes" title="Cadastro de Clientes" src="./assets/demo3.gif" />
+	<figcaption>Cadastro de Clientes</figcaption>
+</figure>
 
-<p align="center">
-    <img alt="Cadastro de Pedido de Quentinha" 
-title="Cadastro de Pedido de Quentinha" src="./
-assets/demo4.gif" />
-</p>
+<figure align="center">
+    <img alt="Cadastro de Pedido de Quentinha" title="Cadastro de Pedido de Quentinha" src="./assets/demo4.gif" />
+	<figcaption>Cadastro de Pedido</figcaption>
+</figure>
 
-<p align="center">
-    <img alt="Modelagem do Banco de Dados de Pedido de Quentinha" 
-title="Modelagem do Banco de Dados de  Pedido de Quentinha" src="./
-assets/banner_ER.png" />
-</p>
-
-
-<p align="right">
-<sub>(Preview)</sub>
-</p>
+<figure align="center">
+    <img alt="Modelagem do Banco de Dados de Pedido de Quentinha" title="Modelagem do Banco de Dados de  Pedido de Quentinha" src="./assets/banner_ER.png" />
+	<figcaption>Modelagem do Banco de Dados</figcaption>
+</figure>
 
 ### Pre-requisitos
 
@@ -102,8 +94,9 @@ private static string password = "root";
 ```bash
 # Executar o script SQL dentro do SQL Server 2014 Management em database/cantina_tio_bill.bacpac para criar o banco de dados 'cantina_tio_bill' e as tabelas 'dbo.produto', 'dbo.cliente', 'dbo.bairro', 'dbo.pedido', 'dbo.produto_item', e popular os dados.
 
-# Execute a aplicação no Visual Studio pressione as teclas <Ctrl+F5>
 ```
+
+#### 5. Execute a aplicação no Visual Studio pressione as teclas <code>Ctrl+F5</code>
 
 ### Tecnologias
 
